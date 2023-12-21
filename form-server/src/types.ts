@@ -1,4 +1,3 @@
-import { CountryName } from "i18n-iso-countries";
 import typia, { tags } from "typia";
 
 export enum ProblemType {
@@ -24,8 +23,26 @@ export enum SlimeSet {
 	DELUXE_TRACKER_WHITE = "White Deluxe Tracker Set (10+6)",
 }
 
+export const STRING_SET_MAP: Record<string, SlimeSet> = {
+	"SLIMEVR-FBT-LBS-P": SlimeSet.LOWER_BODY_PURPLE,
+	"SLIMEVR-FBT-LBS-B": SlimeSet.LOWER_BODY_BLACK,
+	"SLIMEVR-FBT-LBS-W": SlimeSet.LOWER_BODY_WHITE,
+	"SLIMEVR-FBT-CS-P": SlimeSet.CORE_PURPLE,
+	"SLIMEVR-FBT-CS-B": SlimeSet.CORE_BLACK,
+	"SLIMEVR-FBT-CS-W": SlimeSet.CORE_WHITE,
+	"SLIMEVR-FBT-ECS-P": SlimeSet.ENHANCED_CORE_PURPLE,
+	"SLIMEVR-FBT-ECS-B": SlimeSet.ENHANCED_CORE_BLACK,
+	"SLIMEVR-FBT-ECS-W": SlimeSet.ENHANCED_CORE_WHITE,
+	"SLIMEVR-FBT-FBS-P": SlimeSet.FULLBODY_PURPLE,
+	"SLIMEVR-FBT-FBS-B": SlimeSet.FULLBODY_BLACK,
+	"SLIMEVR-FBT-FBS-W": SlimeSet.FULLBODY_WHITE,
+	"SLIMEVR-FBT-DTS-P": SlimeSet.DELUXE_TRACKER_PURPLE,
+	"SLIMEVR-FBT-DTS-B": SlimeSet.DELUXE_TRACKER_BLACK,
+	"SLIMEVR-FBT-DTS-W": SlimeSet.DELUXE_TRACKER_WHITE,
+};
+
 export interface SupportFormBase {
-	email: string & tags.Format<"email">;
+	email: string & tags.Format<"email"> & tags.MaxLength<100>;
 	name: string & tags.MinLength<1> & tags.MaxLength<100>;
 	images: File[];
 	problem: ProblemType;

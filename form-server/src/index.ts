@@ -9,10 +9,9 @@
  */
 
 import typia from "typia";
-import { ProblemType, SupportForm, checkSupportForm } from "./types";
+import { SupportForm } from "./types";
 import { turnstileCheck } from "./turnstile";
-import { ArticleAttachment, ArticleType, TicketCreate, createTicket, formatTicket } from "./zammad";
-import { Buffer } from "node:buffer";
+import { createTicket, formatTicket } from "./zammad";
 
 export interface Env {
 	// Example binding to KV. Learn more at https://developers.cloudflare.com/workers/runtime-apis/kv/
@@ -32,7 +31,8 @@ export interface Env {
 	TURNSTILE_SECRET_KEY: string;
 	ZAMMAD_API_TOKEN: string;
 	ZAMMAD_URL: string;
-	MAX_FILES_SIZE: number;
+	MAX_FILES_SIZE: string;
+	DB: D1Database;
 }
 
 export default {
@@ -70,9 +70,20 @@ async function submitHandler(request: Request, env: Env): Promise<Response> {
 		});
 	}
 
-	if (form.images.reduce((prev, file) => file.size + prev, 0) > env.MAX_FILES_SIZE) {
+	if (
+		form.images.reduce((prev, file) => file.size + prev, 0) >
+			parseInt(env.MAX_FILES_SIZE) &&
+		form.images.every((file) => file.type.startsWith("image"))
+	) {
 		return new Response("The total files are too big", { status: 413 });
 	}
+
+	// const { results } =
+	// 	form.orderNo === undefined
+	// 		? { results: null }
+	// 		: await env.DB.prepare("SELECT * FROM orders WHERE order_id = ?")
+	// 				.bind(form.orderNo)
+	// 				.all();
 
 	const ticketNumber = await createTicket(
 		env.ZAMMAD_URL,

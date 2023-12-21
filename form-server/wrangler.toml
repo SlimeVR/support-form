@@ -6,6 +6,11 @@ compatibility_flags = [ "nodejs_compat" ]
 [build]
 command = "pnpm build"
 
+[[d1_databases]]
+binding = "DB" # i.e. available in your Worker on env.DB
+database_name = "DB"
+database_id = "49c185de-4a39-4667-890e-07e818fda206"
+
 # Variable bindings. These are arbitrary, plaintext strings (similar to environment variables)
 # Note: Use secrets to store sensitive data.
 # Docs: https://developers.cloudflare.com/workers/platform/environment-variables
