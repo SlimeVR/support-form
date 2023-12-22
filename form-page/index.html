@@ -4,65 +4,125 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Support form</title>
-        <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+        <script
+            src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+            async
+            defer
+        ></script>
     </head>
     <body>
-        <form action="%VITE_FORM_URL%" enctype="multipart/form-data" method="post">
+        <form
+            action="%VITE_FORM_URL%"
+            enctype="multipart/form-data"
+            method="post"
+        >
             <div>
-                <label for="name">Name:</label>
                 <input
                     type="text"
-                    id="name"
+                    id="slimeform-name"
                     name="name"
                     minlength="1"
                     maxlength="100"
+                    autocomplete="name"
                     required
                 />
+                <label for="name">Name *</label>
             </div>
             <div>
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required />
+                <input
+                    type="email"
+                    id="slimeform-email"
+                    name="email"
+                    autocomplete="email"
+                    required
+                />
+                <label for="email">Email *</label>
             </div>
-            <div id="warranty-problem" hidden>
-                <div>
-                    <label for="invisble">Test:</label>
-                    <input type="text" id="invisble" name="invisible" minlength="10" required />
-                </div>
-            </div>
-            <div id="other-problem" hidden></div>
             <div>
-                <label for="subject">Subject:</label>
+                <select name="problem" id="slimeform-problem" required>
+                    <option value="" selected disabled>
+                        Please choose an option
+                    </option>
+                </select>
+                <label for="problem">What kind of problem do you have? *</label>
+            </div>
+            <div>
                 <input
                     type="text"
-                    id="subject"
+                    id="slimeform-orderNo"
+                    name="orderNo"
+                    pattern="^\d+$"
+                    title="Only digits"
+                    autocomplete="off"
+                />
+                <label for="orderNo">Order number</label>
+            </div>
+            <div id="slimeform-warranty-problem" hidden>
+                <div>
+                    <select
+                        name="whichSet"
+                        id="slimeform-which-set"
+                    >
+                        <option value="" selected disabled>
+                            Please choose an option
+                        </option>
+                    </select>
+                    <label for="whichSet"
+                        >Which set did you buy?</label
+                    >
+                </div>
+                <div>
+                    <select
+                        name="warrantyIssue"
+                        id="slimeform-warranty-issue"
+                        data-required
+                    >
+                        <option value="" selected disabled>
+                            Please choose an option
+                        </option>
+                    </select>
+                    <label for="warrantyIssue"
+                        >What happened to your tracker? *</label
+                    >
+                </div>
+            </div>
+            <div id="slimeform-other-problem" hidden></div>
+            <div>
+                <input
+                    type="text"
+                    id="slimeform-subject"
                     name="subject"
                     minlength="1"
                     maxlength="60"
                     required
                 />
+                <label for="subject">Subject *</label>
             </div>
             <div>
-                <label for="description">Description:</label>
                 <textarea
-                    id="description"
+                    id="slimeform-description"
                     name="description"
                     maxlength="1000"
                     cols="40"
                     rows="5"
                     required
                 ></textarea>
+                <label for="description">Description *</label>
             </div>
             <div>
-                <label for="images">Images:</label>
                 <input
                     type="file"
                     name="images"
-                    id="images"
+                    id="slimeform-images"
                     accept="image/*"
                     multiple
                 />
+                <label for="images">Images</label>
             </div>
-            <div class="cf-turnstile" data-sitekey="%VITE_CLOUDFLARE_SITE_KEY%"></div>
+            <div
+                class="cf-turnstile"
+                data-sitekey="%VITE_CLOUDFLARE_SITE_KEY%"
+            ></div>
             <button type="submit" value="Submit">Send</button>
         </form>
         <script type="module" src="/src/main.ts"></script>

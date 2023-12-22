@@ -16,6 +16,10 @@ importers:
         version: 5.3.2
 
   form-page:
+    dependencies:
+      form-types:
+        specifier: workspace:*
+        version: link:../form-types
     devDependencies:
       vite:
         specifier: ^5.0.10
@@ -23,22 +27,31 @@ importers:
 
   form-server:
     dependencies:
+      form-types:
+        specifier: workspace:*
+        version: link:../form-types
       i18n-iso-countries:
         specifier: ^7.7.0
         version: 7.7.0
       typia:
-        specifier: ^5.3.2
-        version: 5.3.2(typescript@5.3.2)
+        specifier: ^5.3.5
+        version: 5.3.5(typescript@5.3.2)
     devDependencies:
       '@cloudflare/workers-types':
-        specifier: ^4.20231121.0
-        version: 4.20231121.0
+        specifier: ^4.20231218.0
+        version: 4.20231218.0
       '@types/node':
-        specifier: ^20.10.1
-        version: 20.10.1
+        specifier: ^20.10.5
+        version: 20.10.5
       wrangler:
-        specifier: ^3.17.1
-        version: 3.17.1
+        specifier: ^3.22.1
+        version: 3.22.1
+
+  form-types:
+    dependencies:
+      typia:
+        specifier: ^5.3.5
+        version: 5.3.5(typescript@5.3.2)
 
 packages:
 
@@ -93,8 +106,15 @@ packages:
     dev: true
     optional: true
 
-  /@cloudflare/workers-types@4.20231121.0:
-    resolution: {integrity: sha512-+kWfpCkqiepwAKXyHoE0gnkPgkLhz0/9HOBIGhHRsUvUKvhUtm3mbqqoGRWgF1qcjzrDUBbrrOq4MYHfFtc2RA==}
+  /@cloudflare/workers-types@4.20231218.0:
+    resolution: {integrity: sha512-Vs1FKjfUjXYGbCsXzkl+ITp0Iyb6QiW6+vTERTNThC+v96T0IvPVAioH4tT20rXwoxAfxh380mAaxYtTrJUNVg==}
+    dev: true
+
+  /@cspotcode/source-map-support@0.8.1:
+    resolution: {integrity: sha512-IchNf6dN4tHoMFIn/7OE8LWZ19Y6q/67Bmf6vnGREv8RSbBVb9LPJxEcnwrcwX6ixSvaiGoomAUvu4YSxXrVgw==}
+    engines: {node: '>=12'}
+    dependencies:
+      '@jridgewell/trace-mapping': 0.3.9
     dev: true
 
   /@esbuild-plugins/node-globals-polyfill@0.2.3(esbuild@0.17.19):
@@ -525,6 +545,22 @@ packages:
     engines: {node: '>=14'}
     dev: true
 
+  /@jridgewell/resolve-uri@3.1.1:
+    resolution: {integrity: sha512-dSYZh7HhCDtCKm4QakX0xFpsRDqjjtZf/kjI/v3T3Nwt5r8/qz/M19F9ySyOqU94SXBmeG9ttTul+YnR4LOxFA==}
+    engines: {node: '>=6.0.0'}
+    dev: true
+
+  /@jridgewell/sourcemap-codec@1.4.15:
+    resolution: {integrity: sha512-eF2rxCRulEKXHTRiDrDy6erMYWqNw4LPdQ8UQA4huuxaQsVeRPFl2oM8oDGxMFhJUWZf9McpLtJasDDZb/Bpeg==}
+    dev: true
+
+  /@jridgewell/trace-mapping@0.3.9:
+    resolution: {integrity: sha512-3Belt6tdc8bPgAtbcmdtNJlirVoTmEb5e2gC94PnkwEW9jI6CAHUeoG85tjWP5WquqfavoMtMwiG4P926ZKKuQ==}
+    dependencies:
+      '@jridgewell/resolve-uri': 3.1.1
+      '@jridgewell/sourcemap-codec': 1.4.15
+    dev: true
+
   /@rollup/rollup-android-arm-eabi@4.9.1:
     resolution: {integrity: sha512-6vMdBZqtq1dVQ4CWdhFwhKZL6E4L1dV6jUjuBvsavvNJSppzi6dLBbuV+3+IyUREaj9ZFvQefnQm28v4OCXlig==}
     cpu: [arm]
@@ -632,11 +668,11 @@ packages:
   /@types/node-forge@1.3.10:
     resolution: {integrity: sha512-y6PJDYN4xYBxwd22l+OVH35N+1fCYWiuC3aiP2SlXVE6Lo7SS+rSx9r89hLxrP4pn6n1lBGhHJ12pj3F3Mpttw==}
     dependencies:
-      '@types/node': 20.10.1
+      '@types/node': 20.10.5
     dev: true
 
-  /@types/node@20.10.1:
-    resolution: {integrity: sha512-T2qwhjWwGH81vUEx4EXmBKsTJRXFXNZTL4v0gi01+zyBmCwzE6TyHszqX01m+QHTEq+EZNo13NeJIdEqf+Myrg==}
+  /@types/node@20.10.5:
+    resolution: {integrity: sha512-nNPsNE65wjMxEKI93yOP+NPGGBJz/PoN3kZsVLee0XMiJolxSekEVD8wRwBUBqkwc7UWop0edW50yrCQW4CyRw==}
     dependencies:
       undici-types: 5.26.5
     dev: true
@@ -1113,8 +1149,8 @@ packages:
     engines: {node: '>=6'}
     dev: false
 
-  /miniflare@3.20231030.1:
-    resolution: {integrity: sha512-Y+EkgV/aFg/3Y/xfFtImK36sLZGXvNS45avVEz0cUCA2pGpg4hGdPu1Udmz5b06SyeUEFVf/dEDMJwdRYVEgLw==}
+  /miniflare@3.20231030.4:
+    resolution: {integrity: sha512-7MBz0ArLuDop1WJGZC6tFgN6c5MRyDOIlxbm3yp0TRBpvDS/KsTuWCQcCjsxN4QQ5zvL3JTkuIZbQzRRw/j6ow==}
     engines: {node: '>=16.13'}
     hasBin: true
     dependencies:
@@ -1438,8 +1474,8 @@ packages:
     engines: {node: '>=14.17'}
     hasBin: true
 
-  /typia@5.3.2(typescript@5.3.2):
-    resolution: {integrity: sha512-e6saEuAlqWMlx9uHNDHSS1bY4G1cOxW508k+Ebhjb3E9lhVRzH62FrXBkCrA+pyQCiJUDWvDwCVb40ed6+kdvA==}
+  /typia@5.3.5(typescript@5.3.2):
+    resolution: {integrity: sha512-PaVie/NOgkQHlfK8q7SlEzjLWkbo6W2F+F39Jf5tdN16vP/GWd2uywlh/El4daJbHFGyfq/+gxK66NoNI1bubg==}
     hasBin: true
     peerDependencies:
       typescript: '>=4.8.0 <5.4.0'
@@ -1520,24 +1556,24 @@ packages:
       '@cloudflare/workerd-windows-64': 1.20231030.0
     dev: true
 
-  /wrangler@3.17.1:
-    resolution: {integrity: sha512-Pr9+/tjFkthzG63uoVm1NtVvgokT6p92fy1UsOgrntHyTu0pZMC1VJzG0NC8Vhs+z/+yTT8AqVV6AiJb3w8ZOQ==}
+  /wrangler@3.22.1:
+    resolution: {integrity: sha512-fN7WOF6Ono/TV5V90PuJQNf0azS7B+5C/N/KRjqhlAIQBz+c0yLOGkF6kC/akxjr1yIAC9AzcPk9+OuTSq0C+g==}
     engines: {node: '>=16.17.0'}
     hasBin: true
     dependencies:
       '@cloudflare/kv-asset-handler': 0.2.0
+      '@cspotcode/source-map-support': 0.8.1
       '@esbuild-plugins/node-globals-polyfill': 0.2.3(esbuild@0.17.19)
       '@esbuild-plugins/node-modules-polyfill': 0.2.2(esbuild@0.17.19)
       blake3-wasm: 2.1.5
       chokidar: 3.5.3
       esbuild: 0.17.19
-      miniflare: 3.20231030.1
+      miniflare: 3.20231030.4
       nanoid: 3.3.7
       path-to-regexp: 6.2.1
       resolve.exports: 2.0.2
       selfsigned: 2.4.1
       source-map: 0.6.1
-      source-map-support: 0.5.21
       xxhash-wasm: 1.0.2
     optionalDependencies:
       fsevents: 2.3.3

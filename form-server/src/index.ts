@@ -9,7 +9,7 @@
  */
 
 import typia from "typia";
-import { SupportForm } from "./types";
+import { SupportForm } from "form-types";
 import { turnstileCheck } from "./turnstile";
 import { createTicket, formatTicket } from "./zammad";
 

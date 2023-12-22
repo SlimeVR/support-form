@@ -1,0 +1,14 @@
+{
+    "name": "form-types",
+    "version": "0.0.0",
+    "private": true,
+    "scripts": {
+        "prepare": "tsc"
+    },
+    "main": "dist/src/index.js",
+    "types": "dist/src/index.d.ts",
+    "type": "module",
+    "dependencies": {
+        "typia": "^5.3.5"
+    }
+}

@@ -1,4 +1,4 @@
-import typia, { tags } from "typia";
+import { tags } from "typia";
 
 export enum ProblemType {
 	WARRANTY = "Warranty",
@@ -46,7 +46,7 @@ export interface SupportFormBase {
 	name: string & tags.MinLength<1> & tags.MaxLength<100>;
 	images: File[];
 	problem: ProblemType;
-	orderNo?: string;
+	orderNo?: string & tags.Pattern<"^\\d+$">;
 	subject: string & tags.MinLength<1> & tags.MaxLength<60>;
 	description: string & tags.MinLength<1> & tags.MaxLength<1000>;
 	"cf-turnstile-response": string;
@@ -62,7 +62,7 @@ export enum WarrantyIssue {
 
 export interface SupportFormWarranty extends SupportFormBase, ShippingAddress {
 	problem: ProblemType.WARRANTY;
-	orderNo: string;
+	orderNo: string & tags.Pattern<"^\\d+$">;
 	warrantyIssue: WarrantyIssue;
 	whichSet?: SlimeSet;
 }
@@ -82,5 +82,3 @@ export interface SupportFormOther extends SupportFormBase {
 }
 
 export type SupportForm = SupportFormWarranty | SupportFormOther;
-
-export const checkSupportForm = typia.createIs<SupportForm>();

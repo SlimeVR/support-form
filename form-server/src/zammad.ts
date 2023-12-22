@@ -1,5 +1,5 @@
 import typia from "typia";
-import { ProblemType, SupportForm } from "./types";
+import { ProblemType, SupportForm } from "form-types";
 
 export interface TicketCreate {
 	title: string;
