@@ -24,9 +24,10 @@
                     minlength="1"
                     maxlength="100"
                     autocomplete="name"
+                    pattern="[\p{L} \-\.]+"
                     required
                 />
-                <label for="name">Name *</label>
+                <label for="name">Name</label>
             </div>
             <div>
                 <input
@@ -36,15 +37,15 @@
                     autocomplete="email"
                     required
                 />
-                <label for="email">Email *</label>
+                <label for="email">Email</label>
             </div>
             <div>
                 <select name="problem" id="slimeform-problem" required>
-                    <option value="" selected disabled>
+                    <option value="">
                         Please choose an option
                     </option>
                 </select>
-                <label for="problem">What kind of problem do you have? *</label>
+                <label for="problem">What kind of problem do you have?</label>
             </div>
             <div>
                 <input
@@ -59,16 +60,13 @@
             </div>
             <div id="slimeform-warranty-problem" hidden>
                 <div>
-                    <select
-                        name="whichSet"
-                        id="slimeform-which-set"
-                    >
-                        <option value="" selected disabled>
+                    <select name="whichSet" id="slimeform-which-set">
+                        <option value="">
                             Please choose an option
                         </option>
                     </select>
                     <label for="whichSet"
-                        >Which set did you buy?</label
+                        >Which set has the problem? (optional)</label
                     >
                 </div>
                 <div>
@@ -77,12 +75,90 @@
                         id="slimeform-warranty-issue"
                         data-required
                     >
-                        <option value="" selected disabled>
+                        <option value="">
                             Please choose an option
                         </option>
                     </select>
                     <label for="warrantyIssue"
-                        >What happened to your tracker? *</label
+                        >What happened to your tracker?</label
+                    >
+                </div>
+                <div>
+                    <select
+                        name="country"
+                        id="slimeform-country"
+                        data-required
+                        autocomplete="country"
+                    ></select>
+                    <label for="country">Country or region</label>
+                </div>
+                <div>
+                    <input
+                        type="text"
+                        name="address"
+                        id="slimeform-address"
+                        data-required
+                        autocomplete="shipping street-address"
+                        maxlength="200"
+                    />
+                    <label for="address">Street address</label>
+                </div>
+                <div>
+                    <input
+                        type="text"
+                        name="secondAddress"
+                        id="slimeform-second-address"
+                        maxlength="200"
+                    />
+                    <label for="secondAddress"
+                        >Extra address info (optional)</label
+                    >
+                </div>
+                <div>
+                    <input
+                        type="text"
+                        name="postalCode"
+                        id="slimeform-postal-code"
+                        autocomplete="postal-code"
+                        maxlength="20"
+                    />
+                    <label for="postalCode"
+                        >ZIP or postal code (optional)</label
+                    >
+                </div>
+                <div>
+                    <input
+                        type="text"
+                        name="city"
+                        id="slimeform-city"
+                        data-required
+                        autocomplete="address-level2"
+                        maxlength="200"
+                    />
+                    <label for="city">City</label>
+                </div>
+                <div>
+                    <input
+                        type="text"
+                        name="province"
+                        id="slimeform-province"
+                        autocomplete="address-level1"
+                        maxlength="200"
+                    />
+                    <label for="province">State or province (optional)</label>
+                </div>
+                <div>
+                    <input
+                        type="tel"
+                        name="phoneNumber"
+                        id="slimeform-phone-number"
+                        data-required
+                        autocomplete="tel"
+                        maxlength="30"
+                        pattern="[\d \-\+]+"
+                    />
+                    <label for="phoneNumber"
+                        >Phone number</label
                     >
                 </div>
             </div>
@@ -96,18 +172,7 @@
                     maxlength="60"
                     required
                 />
-                <label for="subject">Subject *</label>
-            </div>
-            <div>
-                <textarea
-                    id="slimeform-description"
-                    name="description"
-                    maxlength="1000"
-                    cols="40"
-                    rows="5"
-                    required
-                ></textarea>
-                <label for="description">Description *</label>
+                <label for="subject">Subject</label>
             </div>
             <div>
                 <input
@@ -117,7 +182,19 @@
                     accept="image/*"
                     multiple
                 />
-                <label for="images">Images</label>
+                <label for="images">Images (optional)</label>
+            </div>
+            <div>
+                <textarea
+                    id="slimeform-description"
+                    name="description"
+                    maxlength="1000"
+                    cols="40"
+                    rows="5"
+                    required
+                    enterkeyhint="done"
+                ></textarea>
+                <label for="description">Description</label>
             </div>
             <div
                 class="cf-turnstile"

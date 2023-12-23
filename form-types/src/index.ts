@@ -1,4 +1,5 @@
 import { tags } from "typia";
+import { Alpha3Code } from "i18n-iso-countries";
 
 export enum ProblemType {
 	WARRANTY = "Warranty",
@@ -43,10 +44,13 @@ export const STRING_SET_MAP: Record<string, SlimeSet> = {
 
 export interface SupportFormBase {
 	email: string & tags.Format<"email"> & tags.MaxLength<100>;
-	name: string & tags.MinLength<1> & tags.MaxLength<100>;
+	name: string &
+		tags.MinLength<1> &
+		tags.MaxLength<100> &
+		tags.Pattern<"[\\p{L} \\-\\.]+">;
 	images: File[];
 	problem: ProblemType;
-	orderNo?: string & tags.Pattern<"^\\d+$">;
+	orderNo?: (string & tags.Pattern<"^\\d+$"> & tags.MaxLength<20>) | "";
 	subject: string & tags.MinLength<1> & tags.MaxLength<60>;
 	description: string & tags.MinLength<1> & tags.MaxLength<1000>;
 	"cf-turnstile-response": string;
@@ -62,19 +66,19 @@ export enum WarrantyIssue {
 
 export interface SupportFormWarranty extends SupportFormBase, ShippingAddress {
 	problem: ProblemType.WARRANTY;
-	orderNo: string & tags.Pattern<"^\\d+$">;
+	orderNo: string & tags.Pattern<"^\\d+$"> & tags.MaxLength<20>;
 	warrantyIssue: WarrantyIssue;
-	whichSet?: SlimeSet;
+	whichSet?: SlimeSet | "";
 }
 
 export interface ShippingAddress {
-	country: string;
-	address: string;
-	secondAddress: string;
-	province?: string;
-	city: string;
-	postalCode: string;
-	phoneNumber: string;
+	country: Alpha3Code;
+	address: string & tags.MaxLength<200>;
+	secondAddress?: string & tags.MaxLength<200>;
+	province?: string & tags.MaxLength<200>;
+	city: string & tags.MaxLength<200>;
+	postalCode?: string & tags.MaxLength<20>;
+	phoneNumber: string & tags.MaxLength<30> & tags.Pattern<"[\\d \\-\\+]+">;
 }
 
 export interface SupportFormOther extends SupportFormBase {

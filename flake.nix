@@ -57,7 +57,8 @@
           # https://devenv.sh/reference/options/
           packages =
             (with pkgs; [
-              ])
+              cacert
+            ])
             ++ lib.optionals pkgs.stdenv.isLinux (with pkgs; [
               ])
             ++ lib.optionals pkgs.stdenv.isDarwin [
@@ -67,6 +68,10 @@
           languages.javascript = {
             enable = true;
             corepack.enable = true;
+          };
+
+          env = {
+            SSL_CERT_FILE = /etc/ssl/certs/ca-certificates.crt;
           };
 
           enterShell = with pkgs; ''

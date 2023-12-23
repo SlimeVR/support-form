@@ -17,7 +17,7 @@ export async function turnstileCheck(
 		method: "POST",
 	});
 
-	const outcome: TurnstileVerify = await result.json();
+	const outcome = await result.json() as TurnstileVerify;
 
 	return outcome.success;
 }

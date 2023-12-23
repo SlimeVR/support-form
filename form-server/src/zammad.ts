@@ -1,5 +1,6 @@
 import typia from "typia";
 import { ProblemType, SupportForm } from "form-types";
+import { Buffer } from "node:buffer";
 
 export interface TicketCreate {
 	title: string;
@@ -15,6 +16,10 @@ export interface Article {
 	content_type: "text/html" | "text/plain";
 	internal: boolean;
 	attachments?: ArticleAttachment[];
+	sender: "Agent" | "Customer" | "System";
+	to: string;
+	cc?: string;
+	from: string;
 }
 
 export interface ArticleAttachment {
@@ -56,12 +61,15 @@ export async function createTicket(
 		},
 	});
 
-	const json = await req.json<TicketCreated>();
+	const json = (await req.json()) as TicketCreated;
 
 	return json.number;
 }
 
-export async function formatTicket(form: SupportForm): Promise<TicketCreate> {
+export async function formatTicket(
+	form: SupportForm,
+	supportEmail: string,
+): Promise<TicketCreate> {
 	const attachments = await Promise.all(
 		form.images?.map<Promise<ArticleAttachment>>(async (blob) => ({
 			filename: blob.name,
@@ -80,6 +88,9 @@ export async function formatTicket(form: SupportForm): Promise<TicketCreate> {
 			internal: false,
 			attachments,
 			body: generateBody(form),
+			sender: "Agent",
+			from: `Support Form <${supportEmail}>`,
+			to: `${form.name} <${form.email}>`,
 		},
 	};
 }
@@ -90,25 +101,26 @@ export function generateBody(form: SupportForm): string {
 			return `Name: ${form.name}
 Issue type: ${form.problem}
 Order number: ${form.orderNo}
-Specific set: ${form.whichSet ?? "Not given"}
+Specific set: ${form.whichSet || "Not given"}
 Warranty issue: ${form.warrantyIssue}
+
 Shipping information:
 Address: ${form.address}
-Extra address info: ${form.secondAddress}
-Postal code: ${form.postalCode}
+Extra address info: ${form.secondAddress || "Not given"}
+Postal code: ${form.postalCode || "Not given"}
 City: ${form.city}
-Province/State: ${form.province ?? "Not given"}
+Province/State: ${form.province || "Not given"}
 Country: ${form.country}
 Phone number: ${form.phoneNumber}
 
-Description:
+Message:
 ${form.description}`;
 		case ProblemType.OTHER:
 			return `Name: ${form.name}
 Issue type: ${form.problem}
-Order number: ${form.orderNo ?? "Not given"}
+Order number: ${form.orderNo || "Not given"}
 
-Description:
+Message:
 ${form.description}`;
 	}
 }

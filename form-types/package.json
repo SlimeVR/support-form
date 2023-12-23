@@ -9,6 +9,7 @@
     "types": "dist/src/index.d.ts",
     "type": "module",
     "dependencies": {
-        "typia": "^5.3.5"
+        "typia": "^5.3.5",
+        "i18n-iso-countries": "^7.7.0"
     }
 }

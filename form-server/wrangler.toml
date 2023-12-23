@@ -14,8 +14,10 @@ database_id = "49c185de-4a39-4667-890e-07e818fda206"
 # Variable bindings. These are arbitrary, plaintext strings (similar to environment variables)
 # Note: Use secrets to store sensitive data.
 # Docs: https://developers.cloudflare.com/workers/platform/environment-variables
-# [vars]
-# MY_VARIABLE = "production_value"
+[vars]
+# Max total attachments size
+MAX_FILES_SIZE = "1e+7" # In bytes
+SUPPORT_EMAIL = "support@slimevr.dev"
 
 # Bind a KV Namespace. Use KV as persistent storage for small key-value pairs.
 # Docs: https://developers.cloudflare.com/workers/runtime-apis/kv

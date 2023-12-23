@@ -32,11 +32,12 @@ export interface Env {
 	ZAMMAD_API_TOKEN: string;
 	ZAMMAD_URL: string;
 	MAX_FILES_SIZE: string;
+	SUPPORT_EMAIL: string;
 	DB: D1Database;
 }
 
 export default {
-	async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
+	async fetch(request: Request, env: Env, _: ExecutionContext): Promise<Response> {
 		const url = new URL(request.url);
 		if (url.pathname === "/submit/support") {
 			return await submitHandler(request, env);
@@ -53,11 +54,14 @@ async function submitHandler(request: Request, env: Env): Promise<Response> {
 	}
 	const body = await request.formData();
 	const ip = request.headers.get("CF-Connecting-IP");
-	const { ...form } = Object.fromEntries<unknown>(body);
-	form.images = body.getAll("images");
-	if (!typia.is<SupportForm>(form)) {
+	const { ...a } = Object.fromEntries<unknown>(body);
+	a.images = body.getAll("images");
+	const validation = typia.validate<SupportForm>(a);
+	if (!validation.success) {
+		console.error(validation.errors);
 		return new Response("Invalid form", { status: 400 });
 	}
+	const form = a as unknown as SupportForm;
 	if (
 		!(await turnstileCheck(
 			ip,
@@ -72,7 +76,7 @@ async function submitHandler(request: Request, env: Env): Promise<Response> {
 
 	if (
 		form.images.reduce((prev, file) => file.size + prev, 0) >
-			parseInt(env.MAX_FILES_SIZE) &&
+			Math.floor(parseFloat(env.MAX_FILES_SIZE)) &&
 		form.images.every((file) => file.type.startsWith("image"))
 	) {
 		return new Response("The total files are too big", { status: 413 });
@@ -88,7 +92,7 @@ async function submitHandler(request: Request, env: Env): Promise<Response> {
 	const ticketNumber = await createTicket(
 		env.ZAMMAD_URL,
 		env.ZAMMAD_API_TOKEN,
-		await formatTicket(form),
+		await formatTicket(form, env.SUPPORT_EMAIL),
 	);
 
 	return new Response(JSON.stringify(form), { status: 201 });
