@@ -1,12 +1,14 @@
 import { ProblemType, SlimeSet, WarrantyIssue } from "form-types";
 import countries from "i18n-iso-countries";
 import Choices, { Choice } from "choices.js";
+import ValidForm from '@pageclip/valid-form'
+import countryEn from "i18n-iso-countries/langs/en.json"
 // import "choices.js/public/assets/styles/base.min.css";
 import "choices.js/public/assets/styles/choices.min.css";
 
 // Fetch country names
 const promise = (async () => {
-	countries.registerLocale(await import("i18n-iso-countries/langs/en.json"));
+	countries.registerLocale(countryEn);
 	const importedOnes = new Set(["en"]);
 	for (const lang of navigator.languages) {
 		const short = lang.substring(0, 2).toLowerCase();
@@ -25,20 +27,20 @@ const promise = (async () => {
 // Ticket reason selector
 {
 	const problemSelect =
-		document.querySelector<HTMLSelectElement>("#slimeform-problem")!;
-	const orderNo = document.querySelector<HTMLInputElement>("#slimeform-orderNo")!;
+		document.querySelector<HTMLSelectElement>("#ContactForm-problem")!;
+	const orderNo = document.querySelector<HTMLInputElement>("#ContactForm-orderNo")!;
 	const orderNoLabel = document.querySelector<HTMLLabelElement>(
-		"#slimeform-orderNo + label",
+		"#ContactForm-orderNo + label",
 	)!;
 
 	const sections = new Map([
 		[
 			ProblemType.WARRANTY,
-			document.querySelector<HTMLDivElement>("#slimeform-warranty-problem")!,
+			document.querySelector<HTMLDivElement>("#ContactForm-warranty-problem")!,
 		],
 		[
 			ProblemType.OTHER,
-			document.querySelector<HTMLDivElement>("#slimeform-other-problem")!,
+			document.querySelector<HTMLDivElement>("#ContactForm-other-problem")!,
 		],
 	]);
 
@@ -81,7 +83,7 @@ const promise = (async () => {
 // Warranty issue selector
 {
 	const warrantySelect = document.querySelector<HTMLSelectElement>(
-		"#slimeform-warranty-issue",
+		"#ContactForm-warranty-issue",
 	)!;
 	Object.entries(WarrantyIssue).forEach(([_, val]) => {
 		warrantySelect.options.add(new Option(val));
@@ -90,8 +92,9 @@ const promise = (async () => {
 
 // Which set selector
 {
-	const whichSetSelect =
-		document.querySelector<HTMLSelectElement>("#slimeform-which-set")!;
+	const whichSetSelect = document.querySelector<HTMLSelectElement>(
+		"#ContactForm-which-set",
+	)!;
 	Object.entries(SlimeSet).forEach(([_, val]) => {
 		whichSetSelect.options.add(new Option(val));
 	});
@@ -99,7 +102,7 @@ const promise = (async () => {
 
 // Country selector
 {
-	const choices = new Choices(document.querySelector("#slimeform-country")!, {
+	const choices = new Choices(document.querySelector("#ContactForm-country")!, {
 		placeholder: true,
 		placeholderValue: "Select the country or region you reside in",
 	});
@@ -113,3 +116,5 @@ const promise = (async () => {
 	);
 	choices.init();
 }
+
+ValidForm(document.querySelector("#ContactForm")!);

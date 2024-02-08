@@ -10,13 +10,13 @@
     "dry-deploy": "wrangler deploy --dry-run --outdir dist"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20231218.0",
-    "@types/node": "^20.10.5",
-    "wrangler": "^3.22.1"
+    "@cloudflare/workers-types": "^4.20240129.0",
+    "@types/node": "^20.11.14",
+    "wrangler": "^3.26.0"
   },
   "dependencies": {
-    "i18n-iso-countries": "^7.7.0",
-    "typia": "^5.3.5",
+    "i18n-iso-countries": "^7.8.0",
+    "typia": "^5.4.1",
     "form-types": "workspace:*"
   }
 }

@@ -78,11 +78,11 @@ export async function formatTicket(
 		})),
 	);
 	return {
-		title: `Support form: ${form.subject}`,
+		title: `Support form: ${form.problem}`,
 		group: "Users",
 		customer_id: `guess:${form.email}`,
 		article: {
-			subject: `Support form: ${form.subject}`,
+			subject: `Support form: ${form.problem}`,
 			type: ArticleType.EMAIL,
 			content_type: "text/plain",
 			internal: false,
@@ -108,8 +108,8 @@ Shipping information:
 Address: ${form.address}
 Extra address info: ${form.secondAddress || "Not given"}
 Postal code: ${form.postalCode || "Not given"}
-City: ${form.city}
-Province/State: ${form.province || "Not given"}
+City: ${form.city || "Not given"}
+Province/State: ${form.province}
 Country: ${form.country}
 Phone number: ${form.phoneNumber}
 

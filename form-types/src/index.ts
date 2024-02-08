@@ -51,7 +51,6 @@ export interface SupportFormBase {
 	images: File[];
 	problem: ProblemType;
 	orderNo?: (string & tags.Pattern<"^\\d+$"> & tags.MaxLength<20>) | "";
-	subject: string & tags.MinLength<1> & tags.MaxLength<60>;
 	description: string & tags.MinLength<1> & tags.MaxLength<1000>;
 	"cf-turnstile-response": string;
 }
@@ -75,8 +74,8 @@ export interface ShippingAddress {
 	country: Alpha3Code;
 	address: string & tags.MaxLength<200>;
 	secondAddress?: string & tags.MaxLength<200>;
-	province?: string & tags.MaxLength<200>;
-	city: string & tags.MaxLength<200>;
+	province: string & tags.MaxLength<200>;
+	city?: string & tags.MaxLength<200>;
 	postalCode?: string & tags.MaxLength<20>;
 	phoneNumber: string & tags.MaxLength<30> & tags.Pattern<"[\\d \\-\\+]+">;
 }

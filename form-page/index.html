@@ -15,11 +15,12 @@
             action="%VITE_FORM_URL%"
             enctype="multipart/form-data"
             method="post"
+            id="ContactForm"
         >
             <div>
                 <input
                     type="text"
-                    id="slimeform-name"
+                    id="ContactForm-name"
                     name="name"
                     minlength="1"
                     maxlength="100"
@@ -32,7 +33,7 @@
             <div>
                 <input
                     type="email"
-                    id="slimeform-email"
+                    id="ContactForm-email"
                     name="email"
                     autocomplete="email"
                     required
@@ -40,7 +41,7 @@
                 <label for="email">Email</label>
             </div>
             <div>
-                <select name="problem" id="slimeform-problem" required>
+                <select name="problem" id="ContactForm-problem" required>
                     <option value="">
                         Please choose an option
                     </option>
@@ -50,7 +51,7 @@
             <div>
                 <input
                     type="text"
-                    id="slimeform-orderNo"
+                    id="ContactForm-orderNo"
                     name="orderNo"
                     pattern="^\d+$"
                     title="Only digits"
@@ -58,9 +59,9 @@
                 />
                 <label for="orderNo">Order number</label>
             </div>
-            <div id="slimeform-warranty-problem" hidden>
+            <div id="ContactForm-warranty-problem" hidden>
                 <div>
-                    <select name="whichSet" id="slimeform-which-set">
+                    <select name="whichSet" id="ContactForm-which-set">
                         <option value="">
                             Please choose an option
                         </option>
@@ -72,7 +73,7 @@
                 <div>
                     <select
                         name="warrantyIssue"
-                        id="slimeform-warranty-issue"
+                        id="ContactForm-warranty-issue"
                         data-required
                     >
                         <option value="">
@@ -86,7 +87,7 @@
                 <div>
                     <select
                         name="country"
-                        id="slimeform-country"
+                        id="ContactForm-country"
                         data-required
                         autocomplete="country"
                     ></select>
@@ -96,7 +97,7 @@
                     <input
                         type="text"
                         name="address"
-                        id="slimeform-address"
+                        id="ContactForm-address"
                         data-required
                         autocomplete="shipping street-address"
                         maxlength="200"
@@ -107,7 +108,7 @@
                     <input
                         type="text"
                         name="secondAddress"
-                        id="slimeform-second-address"
+                        id="ContactForm-second-address"
                         maxlength="200"
                     />
                     <label for="secondAddress"
@@ -118,7 +119,7 @@
                     <input
                         type="text"
                         name="postalCode"
-                        id="slimeform-postal-code"
+                        id="ContactForm-postal-code"
                         autocomplete="postal-code"
                         maxlength="20"
                     />
@@ -130,28 +131,28 @@
                     <input
                         type="text"
                         name="city"
-                        id="slimeform-city"
-                        data-required
+                        id="ContactForm-city"
                         autocomplete="address-level2"
                         maxlength="200"
                     />
-                    <label for="city">City</label>
+                    <label for="city">City (optional)</label>
                 </div>
                 <div>
                     <input
                         type="text"
                         name="province"
-                        id="slimeform-province"
+                        id="ContactForm-province"
                         autocomplete="address-level1"
                         maxlength="200"
+                        data-required
                     />
-                    <label for="province">State or province (optional)</label>
+                    <label for="province">State or province</label>
                 </div>
                 <div>
                     <input
                         type="tel"
                         name="phoneNumber"
-                        id="slimeform-phone-number"
+                        id="ContactForm-phone-number"
                         data-required
                         autocomplete="tel"
                         maxlength="30"
@@ -162,11 +163,11 @@
                     >
                 </div>
             </div>
-            <div id="slimeform-other-problem" hidden></div>
+            <div id="ContactForm-other-problem" hidden></div>
             <div>
                 <input
                     type="text"
-                    id="slimeform-subject"
+                    id="ContactForm-subject"
                     name="subject"
                     minlength="1"
                     maxlength="60"
@@ -178,7 +179,7 @@
                 <input
                     type="file"
                     name="images"
-                    id="slimeform-images"
+                    id="ContactForm-images"
                     accept="image/*"
                     multiple
                 />
@@ -186,7 +187,7 @@
             </div>
             <div>
                 <textarea
-                    id="slimeform-description"
+                    id="ContactForm-description"
                     name="description"
                     maxlength="1000"
                     cols="40"
