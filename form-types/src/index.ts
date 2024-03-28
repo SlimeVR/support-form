@@ -42,6 +42,11 @@ export const STRING_SET_MAP: Record<string, SlimeSet> = {
 	"SLIMEVR-FBT-DTS-W": SlimeSet.DELUXE_TRACKER_WHITE,
 };
 
+export type OrderNumber = ShopifyOrderNumber | CrowdsupplyOrderNumber;
+
+export type ShopifyOrderNumber = string & tags.Pattern<"^#?(SVR#)?\\d{4,}S$"> & tags.MaxLength<20>;
+export type CrowdsupplyOrderNumber = string & tags.Pattern<"^\\d+$"> & tags.MaxLength<20>
+
 export interface SupportFormBase {
 	email: string & tags.Format<"email"> & tags.MaxLength<100>;
 	name: string &
@@ -50,7 +55,7 @@ export interface SupportFormBase {
 		tags.Pattern<"[\\p{L} \\-\\.]+">;
 	images: File[];
 	problem: ProblemType;
-	orderNo?: (string & tags.Pattern<"^\\d+$"> & tags.MaxLength<20>) | "";
+	orderNo?: OrderNumber | "";
 	description: string & tags.MinLength<1> & tags.MaxLength<1000>;
 	"cf-turnstile-response": string;
 }
@@ -65,7 +70,7 @@ export enum WarrantyIssue {
 
 export interface SupportFormWarranty extends SupportFormBase, ShippingAddress {
 	problem: ProblemType.WARRANTY;
-	orderNo: string & tags.Pattern<"^\\d+$"> & tags.MaxLength<20>;
+	orderNo: OrderNumber;
 	warrantyIssue: WarrantyIssue;
 	whichSet?: SlimeSet | "";
 }
