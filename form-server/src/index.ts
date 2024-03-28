@@ -33,7 +33,6 @@ export interface Env {
 	ZAMMAD_URL: string;
 	MAX_FILES_SIZE: string;
 	SUPPORT_EMAIL: string;
-	DB: D1Database;
 }
 
 export default {
