@@ -15,33 +15,11 @@ importers:
         specifier: ^5.4.3
         version: 5.4.3
 
-  form-page:
-    dependencies:
-      '@pageclip/valid-form':
-        specifier: ^1.1.1
-        version: 1.1.1
-      choices.js:
-        specifier: ^10.2.0
-        version: 10.2.0
-      form-types:
-        specifier: workspace:*
-        version: link:../form-types
-      i18n-iso-countries:
-        specifier: ^7.11.0
-        version: 7.11.0
-    devDependencies:
-      vite:
-        specifier: ^5.2.6
-        version: 5.2.6
-      vite-plugin-dynamic-import:
-        specifier: ^1.5.0
-        version: 1.5.0
-
-  form-server:
+  backend:
     dependencies:
       form-types:
         specifier: workspace:*
-        version: link:../form-types
+        version: link:../types
       i18n-iso-countries:
         specifier: ^7.11.0
         version: 7.11.0
@@ -59,7 +37,29 @@ importers:
         specifier: ^3.39.0
         version: 3.39.0(@cloudflare/workers-types@4.20240320.1)
 
-  form-types:
+  frontend:
+    dependencies:
+      '@pageclip/valid-form':
+        specifier: ^1.1.1
+        version: 1.1.1
+      choices.js:
+        specifier: ^10.2.0
+        version: 10.2.0
+      form-types:
+        specifier: workspace:*
+        version: link:../types
+      i18n-iso-countries:
+        specifier: ^7.11.0
+        version: 7.11.0
+    devDependencies:
+      vite:
+        specifier: ^5.2.6
+        version: 5.2.6
+      vite-plugin-dynamic-import:
+        specifier: ^1.5.0
+        version: 1.5.0
+
+  types:
     dependencies:
       i18n-iso-countries:
         specifier: ^7.11.0
