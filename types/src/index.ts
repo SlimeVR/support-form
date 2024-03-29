@@ -1,5 +1,18 @@
 import { tags } from "typia";
 import { Alpha3Code } from "i18n-iso-countries";
+import { TagBase } from "typia/lib/tags/TagBase.js";
+
+export type UnicodePattern<Value extends string> = TagBase<{
+    target: "string";
+    kind: "unicodePattern";
+    value: Value;
+    validate: `/${Value}/v.test($input)`;
+    exclusive: ["format", "pattern", "unicodePattern"];
+    // schema: {
+    //     pattern: Value;
+    // };
+}>;
+
 
 export enum ProblemType {
 	WARRANTY = "Warranty",
@@ -52,7 +65,7 @@ export interface SupportFormBase {
 	name: string &
 		tags.MinLength<1> &
 		tags.MaxLength<100> &
-		tags.Pattern<"[\\p{L} \\-\\.]+">;
+		UnicodePattern<"[\\p{L} \\-\\.]+">;
 	images: File[];
 	problem: ProblemType;
 	orderNo?: OrderNumber | "";

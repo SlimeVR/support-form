@@ -1,10 +1,10 @@
 import { ProblemType, SlimeSet, WarrantyIssue } from "form-types";
 import countries from "i18n-iso-countries";
 import Choices, { Choice } from "choices.js";
-import ValidForm from '@pageclip/valid-form'
-import countryEn from "i18n-iso-countries/langs/en.json"
+import countryEn from "i18n-iso-countries/langs/en.json";
 // import "choices.js/public/assets/styles/base.min.css";
 import "choices.js/public/assets/styles/choices.min.css";
+import { showError } from "./error";
 
 // Fetch country names
 const promise = (async () => {
@@ -117,4 +117,71 @@ const promise = (async () => {
 	choices.init();
 }
 
-ValidForm(document.querySelector("#ContactForm")!);
+// Error validation
+{
+	const form = document.querySelector<HTMLFormElement>("#ContactForm")!;
+	const inputs = form.querySelectorAll<HTMLInputElement>("input");
+	inputs.forEach((i) => {
+		i.addEventListener("input", () => {
+			const parent = i.parentElement! as HTMLDivElement;
+			const textElement = parent.querySelector<HTMLSpanElement>("span.error")!;
+			if (i.validity.valid) {
+				textElement.textContent = "";
+				parent.classList.remove("invalid");
+			} else {
+				showError(i, textElement, parent);
+			}
+		});
+		i.addEventListener("invalid", () => {
+			const parent = i.parentElement! as HTMLDivElement;
+			const textElement = parent.querySelector<HTMLSpanElement>("span.error")!;
+			showError(i, textElement, parent);
+		});
+	});
+
+	// TODO: Missing selects
+
+	const textBoxes = form.querySelectorAll<HTMLTextAreaElement>("textarea");
+	textBoxes.forEach((i) => {
+		i.addEventListener("input", () => {
+			const parent = i.parentElement! as HTMLDivElement;
+			const textElement = parent.querySelector<HTMLSpanElement>("span.error")!;
+			if (i.validity.valid) {
+				textElement.textContent = "";
+				parent.classList.remove("invalid");
+			} else {
+				showError(i, textElement, parent);
+			}
+		});
+		i.addEventListener("invalid", () => {
+			const parent = i.parentElement! as HTMLDivElement;
+			const textElement = parent.querySelector<HTMLSpanElement>("span.error")!;
+			showError(i, textElement, parent);
+		});
+	});
+
+	form.addEventListener("submit", (ev) => {
+		ev.preventDefault();
+		if (!form.checkValidity()) {
+			const input = [...inputs].find((i) => !i.validity.valid);
+			if (input) return input.focus();
+			const textArea = [...textBoxes].find((i) => !i.validity.valid);
+			if (textArea) return textArea.focus();
+		} else {
+			(async () => {
+				const formData = new FormData(form);
+
+				try {
+					const response = await fetch(`${import.meta.env.VITE_FORM_URL}/submit/support`, {
+						method: "POST",
+						// Set the FormData instance as the request body
+						body: formData,
+					});
+					console.log(await response.json());
+				} catch (e) {
+					console.error(e);
+				}
+			})();
+		}
+	});
+}

@@ -78,6 +78,7 @@ export async function formatTicket(
 		})),
 	);
 	return {
+		// TODO: Missing timestamp on title and subject
 		title: `Support form: ${form.problem}`,
 		group: "Users",
 		customer_id: `guess:${form.email}`,

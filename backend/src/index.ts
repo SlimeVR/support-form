@@ -12,6 +12,7 @@ import typia from "typia";
 import { SupportForm } from "form-types";
 import { turnstileCheck } from "./turnstile";
 import { createTicket, formatTicket } from "./zammad";
+import { corsHeaders, handleOptions } from "./cors";
 
 export interface Env {
 	// Example binding to KV. Learn more at https://developers.cloudflare.com/workers/runtime-apis/kv/
@@ -37,11 +38,18 @@ export interface Env {
 
 export default {
 	async fetch(request: Request, env: Env, _: ExecutionContext): Promise<Response> {
+		if (request.method === "OPTIONS") {
+			return handleOptions(request);
+		}
 		const url = new URL(request.url);
 		if (url.pathname === "/submit/support") {
-			return await submitHandler(request, env);
+			const response = await submitHandler(request, env);
+			Object.entries(corsHeaders).forEach(([header, value]) =>
+				response.headers.append(header, value),
+			);
+			return response;
 		}
-		return new Response("Not found", { status: 404 });
+		return new Response("Not found", { status: 404, headers: { ...corsHeaders } });
 	},
 };
 

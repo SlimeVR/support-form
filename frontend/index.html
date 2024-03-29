@@ -18,6 +18,7 @@
             id="ContactForm"
         >
             <div>
+                <span class="error" aria-live="polite"></span>
                 <input
                     type="text"
                     id="ContactForm-name"
@@ -31,6 +32,7 @@
                 <label for="name">Name</label>
             </div>
             <div>
+                <span class="error" aria-live="polite"></span>
                 <input
                     type="email"
                     id="ContactForm-email"
@@ -49,12 +51,12 @@
                 <label for="problem">What kind of problem do you have?</label>
             </div>
             <div>
+                <span class="error" aria-live="polite"></span>
                 <input
                     type="text"
                     id="ContactForm-orderNo"
                     name="orderNo"
-                    pattern="^\d+$"
-                    title="Only digits"
+                    pattern=^(\d+|#?(SVR#)?\d{4,}S)$
                     autocomplete="off"
                 />
                 <label for="orderNo">Order number</label>
@@ -94,7 +96,8 @@
                     <label for="country">Country or region</label>
                 </div>
                 <div>
-                    <input
+                <span class="error" aria-live="polite"></span>
+                <input
                         type="text"
                         name="address"
                         id="ContactForm-address"
@@ -105,7 +108,8 @@
                     <label for="address">Street address</label>
                 </div>
                 <div>
-                    <input
+                <span class="error" aria-live="polite"></span>
+                <input
                         type="text"
                         name="secondAddress"
                         id="ContactForm-second-address"
@@ -116,7 +120,8 @@
                     >
                 </div>
                 <div>
-                    <input
+                <span class="error" aria-live="polite"></span>
+                <input
                         type="text"
                         name="postalCode"
                         id="ContactForm-postal-code"
@@ -128,7 +133,8 @@
                     >
                 </div>
                 <div>
-                    <input
+                <span class="error" aria-live="polite"></span>
+                <input
                         type="text"
                         name="city"
                         id="ContactForm-city"
@@ -138,7 +144,8 @@
                     <label for="city">City (optional)</label>
                 </div>
                 <div>
-                    <input
+                <span class="error" aria-live="polite"></span>
+                <input
                         type="text"
                         name="province"
                         id="ContactForm-province"
@@ -149,7 +156,8 @@
                     <label for="province">State or province</label>
                 </div>
                 <div>
-                    <input
+                <span class="error" aria-live="polite"></span>
+                <input
                         type="tel"
                         name="phoneNumber"
                         id="ContactForm-phone-number"
@@ -165,6 +173,7 @@
             </div>
             <div id="ContactForm-other-problem" hidden></div>
             <div>
+                <span class="error" aria-live="polite"></span>
                 <input
                     type="text"
                     id="ContactForm-subject"
@@ -176,6 +185,7 @@
                 <label for="subject">Subject</label>
             </div>
             <div>
+                <span class="error" aria-live="polite"></span>
                 <input
                     type="file"
                     name="images"
@@ -186,6 +196,7 @@
                 <label for="images">Images (optional)</label>
             </div>
             <div>
+                <span class="error" aria-live="polite"></span>
                 <textarea
                     id="ContactForm-description"
                     name="description"

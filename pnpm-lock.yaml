@@ -39,9 +39,6 @@ importers:
 
   frontend:
     dependencies:
-      '@pageclip/valid-form':
-        specifier: ^1.1.1
-        version: 1.1.1
       choices.js:
         specifier: ^10.2.0
         version: 10.2.0
@@ -603,10 +600,6 @@ packages:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.16.0
     dev: true
-
-  /@pageclip/valid-form@1.1.1:
-    resolution: {integrity: sha512-KUsFHA5EpnmWcZ+VGeEzH4MKhADhXtSLZsE9b7lG2EcmNXNH60bdnGC1YQpLKyyjDr4fQQfvIdCh9Hlsi462hQ==}
-    dev: false
 
   /@rollup/rollup-android-arm-eabi@4.13.2:
     resolution: {integrity: sha512-3XFIDKWMFZrMnao1mJhnOT1h2g0169Os848NhhmGweEcfJ4rCi+3yMCOLG4zA61rbJdkcrM/DjVZm9Hg5p5w7g==}
