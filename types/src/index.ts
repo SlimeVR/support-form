@@ -60,7 +60,7 @@ export type ShopifyOrderNumber = string &
 	tags.Pattern<"^#?(SVR#)?\\d{4,}S$"> &
 	tags.MaxLength<20>;
 export type CrowdsupplyOrderNumber = string &
-	tags.Pattern<"^\\d+$"> &
+	tags.Pattern<"^#?\\d+$"> &
 	tags.MaxLength<20>;
 
 export interface SupportFormBase {

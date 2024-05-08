@@ -140,6 +140,35 @@ const promise = (async () => {
 	});
 
 	// TODO: Missing selects
+	const selects = form.querySelectorAll<HTMLSelectElement>("select");
+	const checkEmptySelect = (e: HTMLSelectElement) => {
+		if (e.required && !e.value) {
+			e.setCustomValidity("You need to choose an option!");
+			return true;
+		} else {
+			e.setCustomValidity("");
+			return false;
+		}
+	};
+	selects.forEach((i) => {
+		i.addEventListener("change", () => {
+			checkEmptySelect(i);
+			const parent = i.closest<HTMLDivElement>(".field.field_group")!;
+			const textElement = parent.querySelector<HTMLSpanElement>("span.error")!;
+			if (i.validity.valid) {
+				textElement.textContent = "";
+				parent.classList.remove("invalid");
+			} else {
+				showError(i, textElement, parent);
+			}
+		});
+		i.addEventListener("invalid", () => {
+			checkEmptySelect(i);
+			const parent = i.closest<HTMLDivElement>(".field.field_group")!;
+			const textElement = parent.querySelector<HTMLSpanElement>("span.error")!;
+			showError(i, textElement, parent);
+		});
+	});
 
 	const textBoxes = form.querySelectorAll<HTMLTextAreaElement>("textarea");
 	textBoxes.forEach((i) => {
@@ -175,6 +204,15 @@ const promise = (async () => {
 		submitButton.disabled = true;
 		errorMessage.classList.add("visually-hidden");
 		if (!form.checkValidity()) {
+			const select = [...selects].find((i) => checkEmptySelect(i));
+			if (select) {
+				submitButton.disabled = false;
+				if (select.id !== "ContactForm-country") {
+					select.focus();
+				} else {
+					select.parentElement?.parentElement?.focus();
+				}
+			}
 			const input = [...inputs].find((i) => !i.validity.valid);
 			if (input) {
 				submitButton.disabled = false;

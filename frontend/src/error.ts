@@ -4,7 +4,9 @@ export function showError(
 	parent: HTMLDivElement,
 ) {
 	parent.classList.add("invalid");
-	if (input.validity.valueMissing) {
+	if (input.validity.customError) {
+		errorContent.textContent = input.validationMessage;
+	} else if (input.validity.valueMissing) {
 		errorContent.textContent = `You need to fill this one out!`;
 	} else if (input.validity.typeMismatch) {
 		switch (input.type.toLowerCase()) {
