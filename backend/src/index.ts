@@ -81,6 +81,11 @@ async function submitHandler(request: Request, env: Env): Promise<Response> {
 		});
 	}
 
+	if (!onlyFiles(form)) {
+		console.error("how did form do this");
+		return new Response("Unreachable", { status: 500 });
+	}
+
 	if (
 		form.images.reduce((prev, file) => file.size + prev, 0) >
 			Math.floor(parseFloat(env.MAX_FILES_SIZE)) &&
@@ -102,5 +107,17 @@ async function submitHandler(request: Request, env: Env): Promise<Response> {
 		await formatTicket(form, env.SUPPORT_EMAIL),
 	);
 
-	return new Response(JSON.stringify(form), { status: 201 });
+	return new Response(
+		JSON.stringify({
+			success: true,
+		}),
+		{ status: 201 },
+	);
+}
+
+function onlyFiles(form: SupportForm): form is SupportForm & { images: File[] } {
+	if (!Array.isArray(form) || !(form[0] instanceof File)) {
+		form.images = [];
+	}
+	return true;
 }

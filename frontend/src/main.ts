@@ -160,25 +160,56 @@ const promise = (async () => {
 		});
 	});
 
+	const submitButton = form.querySelector<HTMLButtonElement>(
+		'button[type="submit"]',
+	)!;
+	const successMessage = document.querySelector<HTMLElement>(
+		"#ContactForm-Slimevr-Success",
+	)!;
+	const errorMessage = document.querySelector<HTMLElement>(
+		"#ContactForm-Slimevr-Error",
+	)!;
 	form.addEventListener("submit", (ev) => {
 		ev.preventDefault();
+		if (submitButton.disabled) return;
+		submitButton.disabled = true;
+		errorMessage.classList.add("visually-hidden");
 		if (!form.checkValidity()) {
 			const input = [...inputs].find((i) => !i.validity.valid);
-			if (input) return input.focus();
+			if (input) {
+				submitButton.disabled = false;
+				return input.focus();
+			}
 			const textArea = [...textBoxes].find((i) => !i.validity.valid);
-			if (textArea) return textArea.focus();
+			if (textArea) {
+				submitButton.disabled = false;
+				return textArea.focus();
+			}
 		} else {
 			(async () => {
 				const formData = new FormData(form);
 
 				try {
-					const response = await fetch(`${import.meta.env.VITE_FORM_URL}/submit/support`, {
-						method: "POST",
-						// Set the FormData instance as the request body
-						body: formData,
-					});
+					const response = await fetch(
+						`${import.meta.env.VITE_FORM_URL}/submit/support`,
+						{
+							method: "POST",
+							// Set the FormData instance as the request body
+							body: formData,
+						},
+					);
+
+					successMessage.classList.remove("visually-hidden");
+					form.classList.add("visually-hidden");
+					successMessage.focus();
+
 					console.log(await response.json());
 				} catch (e) {
+					submitButton.disabled = false;
+
+					errorMessage.classList.remove("visually-hidden");
+					errorMessage.focus();
+
 					console.error(e);
 				}
 			})();

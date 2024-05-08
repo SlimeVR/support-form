@@ -67,11 +67,11 @@ export async function createTicket(
 }
 
 export async function formatTicket(
-	form: SupportForm,
+	form: SupportForm & { images: File[] },
 	supportEmail: string,
 ): Promise<TicketCreate> {
 	const attachments = await Promise.all(
-		form.images?.map<Promise<ArticleAttachment>>(async (blob) => ({
+		form.images.map<Promise<ArticleAttachment>>(async (blob) => ({
 			filename: blob.name,
 			"mime-type": blob.type,
 			data: Buffer.from(await blob.arrayBuffer()).toString("base64"),

@@ -3,16 +3,15 @@ import { Alpha3Code } from "i18n-iso-countries";
 import { TagBase } from "typia/lib/tags/TagBase.js";
 
 export type UnicodePattern<Value extends string> = TagBase<{
-    target: "string";
-    kind: "unicodePattern";
-    value: Value;
-    validate: `/${Value}/v.test($input)`;
-    exclusive: ["format", "pattern", "unicodePattern"];
-    // schema: {
-    //     pattern: Value;
-    // };
+	target: "string";
+	kind: "unicodePattern";
+	value: Value;
+	validate: `/${Value}/v.test($input)`;
+	exclusive: ["format", "pattern", "unicodePattern"];
+	// schema: {
+	//     pattern: Value;
+	// };
 }>;
-
 
 export enum ProblemType {
 	WARRANTY = "Warranty",
@@ -57,8 +56,12 @@ export const STRING_SET_MAP: Record<string, SlimeSet> = {
 
 export type OrderNumber = ShopifyOrderNumber | CrowdsupplyOrderNumber;
 
-export type ShopifyOrderNumber = string & tags.Pattern<"^#?(SVR#)?\\d{4,}S$"> & tags.MaxLength<20>;
-export type CrowdsupplyOrderNumber = string & tags.Pattern<"^\\d+$"> & tags.MaxLength<20>
+export type ShopifyOrderNumber = string &
+	tags.Pattern<"^#?(SVR#)?\\d{4,}S$"> &
+	tags.MaxLength<20>;
+export type CrowdsupplyOrderNumber = string &
+	tags.Pattern<"^\\d+$"> &
+	tags.MaxLength<20>;
 
 export interface SupportFormBase {
 	email: string & tags.Format<"email"> & tags.MaxLength<100>;
@@ -66,7 +69,7 @@ export interface SupportFormBase {
 		tags.MinLength<1> &
 		tags.MaxLength<100> &
 		UnicodePattern<"[\\p{L} \\-\\.]+">;
-	images: File[];
+	images: File[] | "" | [""];
 	problem: ProblemType;
 	orderNo?: OrderNumber | "";
 	description: string & tags.MinLength<1> & tags.MaxLength<1000>;

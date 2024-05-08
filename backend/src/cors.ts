@@ -6,8 +6,7 @@ export const corsHeaders = {
 export const corsHeadersWithMaxAge = {
 	...corsHeaders,
 	"Access-Control-Max-Age": "86400",
-
-}
+};
 
 export function handleOptions(request: Request) {
 	// Make sure the necessary headers are present
@@ -25,9 +24,8 @@ export function handleOptions(request: Request) {
 			...corsHeadersWithMaxAge,
 			// Allow all future content Request headers to go back to browser
 			// such as Authorization (Bearer) or X-Client-Name-Version
-			"Access-Control-Allow-Headers": request.headers.get(
-				"Access-Control-Request-Headers",
-			) ?? "",
+			"Access-Control-Allow-Headers":
+				request.headers.get("Access-Control-Request-Headers") ?? "",
 		};
 		return new Response(null, {
 			headers: respHeaders,
