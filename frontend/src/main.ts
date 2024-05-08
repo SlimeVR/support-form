@@ -185,6 +185,7 @@ const promise = (async () => {
 				submitButton.disabled = false;
 				return textArea.focus();
 			}
+			submitButton.disabled = false;
 		} else {
 			(async () => {
 				const formData = new FormData(form);
