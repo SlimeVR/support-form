@@ -65,7 +65,10 @@ export async function createTicket(
 
 	return json.number;
 }
-
+const BODY_START = "We received your message, here's what it contained:";
+const BODY_END =
+	"We'll get back to you ASAP! You can reply to this email " +
+	"if you want to add something to your ticket.";
 export async function formatTicket(
 	form: SupportForm & { images: File[] },
 	supportEmail: string,
@@ -88,7 +91,7 @@ export async function formatTicket(
 			content_type: "text/plain",
 			internal: false,
 			attachments,
-			body: generateBody(form),
+			body: `${BODY_START}\n${generateBody(form)}\n\n${BODY_END}`,
 			sender: "Agent",
 			from: `Support Form <${supportEmail}>`,
 			to: `${form.name} <${form.email}>`,
@@ -115,13 +118,13 @@ Country: ${form.country}
 Phone number: ${form.phoneNumber}
 
 Message:
-${form.description}`;
+${form.description.trim()}`;
 		case ProblemType.OTHER:
 			return `Name: ${form.name}
 Issue type: ${form.problem}
 Order number: ${form.orderNo || "Not given"}
 
 Message:
-${form.description}`;
+${form.description.trim()}`;
 	}
 }
