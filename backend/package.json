@@ -1,6 +1,7 @@
 {
   "name": "form-server",
   "version": "0.0.0",
+  "engines": {"node": ">=21"},
   "private": true,
   "scripts": {
     "deploy": "wrangler deploy",
