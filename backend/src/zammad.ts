@@ -1,6 +1,9 @@
 import typia from "typia";
 import { ProblemType, SupportForm } from "form-types";
+import { escape as escapeHtml } from "html-escaper";
 import { Buffer } from "node:buffer";
+const html = (strings: string[] | ArrayLike<string>, ...values: any[]) =>
+	String.raw({ raw: strings }, ...values);
 
 export interface TicketCreate {
 	title: string;
@@ -88,10 +91,10 @@ export async function formatTicket(
 		article: {
 			subject: `Support form: ${form.problem}`,
 			type: ArticleType.EMAIL,
-			content_type: "text/plain",
+			content_type: "text/html",
 			internal: false,
 			attachments,
-			body: `${BODY_START}\n${generateBody(form)}\n\n${BODY_END}`,
+			body: `${BODY_START}<br />${generateBody(form)}<br /><br />${BODY_END}`,
 			sender: "Agent",
 			from: `Support Form <${supportEmail}>`,
 			to: `${form.name} <${form.email}>`,
@@ -102,29 +105,85 @@ export async function formatTicket(
 export function generateBody(form: SupportForm): string {
 	switch (form.problem) {
 		case ProblemType.WARRANTY:
-			return `Name: ${form.name}
-Issue type: ${form.problem}
-Order number: ${form.orderNo}
-Specific set: ${form.whichSet || "Not given"}
-Warranty issue: ${form.warrantyIssue}
-
-Shipping information:
-Address: ${form.address}
-Extra address info: ${form.secondAddress || "Not given"}
-Postal code: ${form.postalCode || "Not given"}
-City: ${form.city || "Not given"}
-Province/State: ${form.province}
-Country: ${form.country}
-Phone number: ${form.phoneNumber}
-
-Message:
-${form.description.trim()}`;
+			return html`<div>
+				<div>
+					<b>Name:</b>
+					<pre>${escapeHtml(form.name)}</pre>
+				</div>
+				<div>
+					<b>Issue type:</b>
+					<pre>${escapeHtml(form.problem)}</pre>
+				</div>
+				<div>
+					<b>Order number:</b>
+					<pre>${escapeHtml(form.orderNo)}</pre>
+				</div>
+				<div>
+					<b>Specific set:</b>
+					<pre>
+${form.whichSet ? escapeHtml(form.whichSet) : "Not given"}</pre
+					>
+				</div>
+				<div>
+					<b>Warranty issue:</b>
+					<pre>${escapeHtml(form.warrantyIssue)}</pre>
+				</div>
+				<h3>Shipping information:</h3>
+				<div>
+					<b>Address:</b>
+					<pre>${escapeHtml(form.address)}</pre>
+				</div>
+				<div>
+					<b>Extra address info:</b>
+					<pre>
+${form.secondAddress ? escapeHtml(form.secondAddress) : "Not given"}</pre
+					>
+				</div>
+				<div>
+					<b>Postal code:</b>
+					<pre>
+${form.postalCode ? escapeHtml(form.postalCode) : "Not given"}</pre
+					>
+				</div>
+				<div>
+					<b>City:</b>
+					<pre>${form.city ? escapeHtml(form.city) : "Not given"}</pre>
+				</div>
+				<div>
+					<b>Province/State:</b>
+					<pre>${escapeHtml(escapeHtml(form.province))}</pre>
+				</div>
+				<div>
+					<b>Country:</b>
+					<pre>${escapeHtml(form.country)}</pre>
+				</div>
+				<div>
+					<b>Phone number:</b>
+					<pre>${escapeHtml(form.phoneNumber)}</pre>
+				</div>
+				<div>
+					<b>Message:</b>
+					<pre>${escapeHtml(form.description.trim())}</pre>
+				</div>
+			</div>`;
 		case ProblemType.OTHER:
-			return `Name: ${form.name}
-Issue type: ${form.problem}
-Order number: ${form.orderNo || "Not given"}
-
-Message:
-${form.description.trim()}`;
+			return html`<div>
+				<div>
+					<b>Name:</b>
+					<pre>${escapeHtml(form.name)}</pre>
+				</div>
+				<div>
+					<b>Issue type:</b>
+					<pre>${escapeHtml(form.problem)}</pre>
+				</div>
+				<div>
+					<b>Order number:</b>
+					<pre>${form.orderNo ? escapeHtml(form.orderNo) : "Not given"}</pre>
+				</div>
+				<div>
+					<b>Message:</b>
+					<pre>${escapeHtml(form.description.trim())}</pre>
+				</div>
+			</div>`;
 	}
 }
