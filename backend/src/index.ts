@@ -1,40 +1,35 @@
-/**
- * Welcome to Cloudflare Workers! This is your first worker.
- *
- * - Run `npm run dev` in your terminal to start a development server
- * - Open a browser tab at http://localhost:8787/ to see your worker in action
- * - Run `npm run deploy` to publish your worker
- *
- * Learn more at https://developers.cloudflare.com/workers/
- */
-
 import typia from "typia";
+import Fastify from "fastify";
+import cors from "@fastify/cors";
+import helmet from "@fastify/helmet";
+import fastifyMultidata from "@fastify/multipart";
 import { SupportForm } from "form-types";
 import { turnstileCheck } from "./turnstile";
 import { createTicket, formatTicket } from "./zammad";
-import { corsHeaders, handleOptions } from "./cors";
 
 export interface Env {
-	// Example binding to KV. Learn more at https://developers.cloudflare.com/workers/runtime-apis/kv/
-	// MY_KV_NAMESPACE: KVNamespace;
-	//
-	// Example binding to Durable Object. Learn more at https://developers.cloudflare.com/workers/runtime-apis/durable-objects/
-	// MY_DURABLE_OBJECT: DurableObjectNamespace;
-	//
-	// Example binding to R2. Learn more at https://developers.cloudflare.com/workers/runtime-apis/r2/
-	// MY_BUCKET: R2Bucket;
-	//
-	// Example binding to a Service. Learn more at https://developers.cloudflare.com/workers/runtime-apis/service-bindings/
-	// MY_SERVICE: Fetcher;
-	//
-	// Example binding to a Queue. Learn more at https://developers.cloudflare.com/queues/javascript-apis/
-	// MY_QUEUE: Queue;
 	TURNSTILE_SECRET_KEY: string;
 	ZAMMAD_API_TOKEN: string;
 	ZAMMAD_URL: string;
 	MAX_FILES_SIZE: string;
 	SUPPORT_EMAIL: string;
 }
+
+const fastify = Fastify({ logger: true });
+fastify.register(fastifyMultidata, {
+	attachFieldsToBody: true,
+	limits: {
+		parts: 100,
+	},
+});
+fastify.register(helmet);
+fastify.register(cors, {
+	origin: "*",
+});
+
+fastify.post("/submit/support", async (req, reply) => {
+	req.body
+});
 
 export default {
 	async fetch(request: Request, env: Env, _: ExecutionContext): Promise<Response> {
@@ -149,3 +144,10 @@ function onlyFiles(form: SupportForm): form is SupportForm & { images: File[] } 
 // 	}
 // 	return true;
 // }
+
+try {
+	await fastify.listen({ port: parseInt(process.env.PORT!!) });
+} catch (err) {
+	fastify.log.error(err);
+	process.exit(1);
+}

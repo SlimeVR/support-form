@@ -10,15 +10,17 @@
     "dry-deploy": "wrangler deploy --dry-run --outdir dist"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20240320.1",
     "@types/html-escaper": "^3.0.2",
-    "@types/node": "^20.11.30",
-    "wrangler": "^3.39.0"
+    "@types/node": "^20.12.12"
   },
   "dependencies": {
+    "@fastify/cors": "^9.0.1",
+    "@fastify/helmet": "^11.1.1",
+    "@fastify/multipart": "^8.2.0",
+    "fastify": "^4.27.0",
     "form-types": "workspace:*",
     "html-escaper": "^3.0.3",
-    "i18n-iso-countries": "^7.11.0",
-    "typia": "^5.5.7"
+    "i18n-iso-countries": "^7.11.2",
+    "typia": "^6.0.3"
   }
 }

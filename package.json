@@ -9,6 +9,6 @@
   "license": "Apache-2.0 OR MIT",
   "devDependencies": {
     "prettier": "3.2.5",
-    "typescript": "^5.4.3"
+    "typescript": "^5.4.5"
   }
 }
