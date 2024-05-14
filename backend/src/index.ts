@@ -87,9 +87,18 @@ async function submitHandler(request: Request, env: Env): Promise<Response> {
 	}
 
 	if (
+		!form.images.every(
+			(file) => supportedFileTypes.has(file.type) || file.name.endsWith(".log"),
+		)
+	) {
+		return new Response("The files sent are not the valid type of file", {
+			status: 403,
+		});
+	}
+
+	if (
 		form.images.reduce((prev, file) => file.size + prev, 0) >
-			Math.floor(parseFloat(env.MAX_FILES_SIZE)) &&
-		form.images.every((file) => file.type.startsWith("image"))
+		Math.floor(parseFloat(env.MAX_FILES_SIZE))
 	) {
 		return new Response("The total files are too big", { status: 413 });
 	}
@@ -115,9 +124,28 @@ async function submitHandler(request: Request, env: Env): Promise<Response> {
 	);
 }
 
+const supportedFileTypes = new Set([
+	"image/png",
+	"image/jpeg",
+	"image/gif",
+	"image/apng",
+	"text/plain",
+]);
+
 function onlyFiles(form: SupportForm): form is SupportForm & { images: File[] } {
-	if (!Array.isArray(form) || !(form[0] instanceof File)) {
+	if (!Array.isArray(form.images) || !(form.images[0] instanceof File)) {
 		form.images = [];
 	}
 	return true;
 }
+
+// async function checkFileTypes(files: File[]): Promise<boolean> {
+// 	for (const file of files) {
+// 		const fileType = await fileTypeFromBlob(file);
+// 		console.log(fileType)
+// 		if (!fileType || !supportedFileTypes.has(fileType?.mime)) {
+// 			return false;
+// 		}
+// 	}
+// 	return true;
+// }

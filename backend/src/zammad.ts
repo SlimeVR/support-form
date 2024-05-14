@@ -76,7 +76,7 @@ export async function formatTicket(
 	const attachments = await Promise.all(
 		form.images.map<Promise<ArticleAttachment>>(async (blob) => ({
 			filename: blob.name,
-			"mime-type": blob.type,
+			"mime-type": blob.type || "text/plain",
 			data: Buffer.from(await blob.arrayBuffer()).toString("base64"),
 		})),
 	);
