@@ -238,11 +238,11 @@ const promise = (async () => {
 						},
 					);
 
+					console.log(await response.json());
+
 					successMessage.classList.remove("visually-hidden");
 					form.classList.add("visually-hidden");
 					successMessage.focus();
-
-					console.log(await response.json());
 				} catch (e) {
 					submitButton.disabled = false;
 
