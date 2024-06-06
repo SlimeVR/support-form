@@ -39,15 +39,15 @@ importers:
         specifier: ^7.11.2
         version: 7.11.2
       typia:
-        specifier: ^6.0.3
-        version: 6.0.3(typescript@5.4.5)
+        specifier: ^6.0.6
+        version: 6.0.6(typescript@5.4.5)
     devDependencies:
       '@types/html-escaper':
         specifier: ^3.0.2
         version: 3.0.2
       '@types/node':
-        specifier: ^20.12.12
-        version: 20.12.12
+        specifier: ^20.14.2
+        version: 20.14.2
 
   frontend:
     dependencies:
@@ -62,8 +62,8 @@ importers:
         version: 7.11.2
     devDependencies:
       vite:
-        specifier: ^5.2.11
-        version: 5.2.11(@types/node@20.12.12)
+        specifier: ^5.2.12
+        version: 5.2.12(@types/node@20.14.2)
       vite-plugin-dynamic-import:
         specifier: ^1.5.0
         version: 1.5.0
@@ -74,8 +74,8 @@ importers:
         specifier: ^7.11.2
         version: 7.11.2
       typia:
-        specifier: ^6.0.3
-        version: 6.0.3(typescript@5.4.5)
+        specifier: ^6.0.6
+        version: 6.0.6(typescript@5.4.5)
 
 packages:
 
@@ -339,8 +339,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@samchon/openapi@0.1.21':
-    resolution: {integrity: sha512-IUCOZpLOx8IZzxW87ySvFRSyGMRRQS5vpUwhUddzVR9vlDvTfVYjQjFuiJBqQIeGSdZExV3JzuHJCogacmd0/g==}
+  '@samchon/openapi@0.1.22':
+    resolution: {integrity: sha512-SXbXTKwS33agE+GiAskDc7v40wVLnTizxn6YPqD7iNStPckMagJZV1g/IlpqH/hhWOm/MrbEJGvgQ+Fr9TG7mQ==}
 
   '@types/estree@1.0.5':
     resolution: {integrity: sha512-/kYRxGDLWzHOB7q+wtSUQlFrtcdUccpfy+X+9iMBpHK8QLLhx2wIPYuS5DYtR9Wa/YlZAbIovy7qVdB1Aq6Lyw==}
@@ -348,8 +348,8 @@ packages:
   '@types/html-escaper@3.0.2':
     resolution: {integrity: sha512-A8vk09eyYzk8J/lFO4OUMKCmRN0rRzfZf4n3Olwapgox/PtTiU8zPYlL1UEkJ/WeHvV6v9Xnj3o/705PKz9r4Q==}
 
-  '@types/node@20.12.12':
-    resolution: {integrity: sha512-eWLDGF/FOSPtAvEqeRAQ4C8LSA7M1I7i0ky1I8U7kD1J5ITyW3AsRhQrKVoWf5pFKZ2kILsEGJhsI9r93PYnOw==}
+  '@types/node@20.14.2':
+    resolution: {integrity: sha512-xyu6WAMVwv6AKFLB+e/7ySZVr/0zLCzOa7rSpq6jNwpqOrUbcACDWC+53d4n2QHOnDou0fbIsg8wZu/sxrnI4Q==}
 
   abort-controller@3.0.0:
     resolution: {integrity: sha512-h8lQ8tacZYnR3vNQTgibj+tODHI5/+l06Au2Pcriv/Gmet0eaj4TwWH41sO9wnHDiQsEj19q0drzdWdeAHtweg==}
@@ -917,11 +917,11 @@ packages:
     engines: {node: '>=14.17'}
     hasBin: true
 
-  typia@6.0.3:
-    resolution: {integrity: sha512-Yq69N1EbVcU3kXxeEQEdl9J9mhWRJLfGiKBl9e2zLCIVfzYt/WVjEidlpy1BAPybfOTuIZ+jFtsooZ4FQNJffw==}
+  typia@6.0.6:
+    resolution: {integrity: sha512-7SNGNmV7E/gEc5YZ32Hz1Tzd8mIGUOGcJyZlD34KUXX584RPvmcuHZzDRtxp8HgTvpqAMY9oAasH5QJM82jc3A==}
     hasBin: true
     peerDependencies:
-      typescript: '>=4.8.0 <5.5.0'
+      typescript: '>=4.8.0 <5.6.0'
 
   undici-types@5.26.5:
     resolution: {integrity: sha512-JlCMO+ehdEIKqlFxk6IfVoAUVmgz7cU7zD/h9XZ0qzeosSHmUJVOzSQvvYSYWXkFXC+IfLKSIffhv0sVZup6pA==}
@@ -935,8 +935,8 @@ packages:
   vite-plugin-dynamic-import@1.5.0:
     resolution: {integrity: sha512-Qp85c+AVJmLa8MLni74U4BDiWpUeFNx7NJqbGZyR2XJOU7mgW0cb7nwlAMucFyM4arEd92Nfxp4j44xPi6Fu7g==}
 
-  vite@5.2.11:
-    resolution: {integrity: sha512-HndV31LWW05i1BLPMUCE1B9E9GFbOu1MbenhS58FuK6owSO5qHm7GiCotrNY1YE5rMeQSFBGmT5ZaLEjFizgiQ==}
+  vite@5.2.12:
+    resolution: {integrity: sha512-/gC8GxzxMK5ntBwb48pR32GGhENnjtY30G4A0jemunsBkiEZFw60s8InGpN8gkhHEkjnRK1aSAxeQgwvFhUHAA==}
     engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
     peerDependencies:
@@ -1143,13 +1143,13 @@ snapshots:
   '@rollup/rollup-win32-x64-msvc@4.13.2':
     optional: true
 
-  '@samchon/openapi@0.1.21': {}
+  '@samchon/openapi@0.1.22': {}
 
   '@types/estree@1.0.5': {}
 
   '@types/html-escaper@3.0.2': {}
 
-  '@types/node@20.12.12':
+  '@types/node@20.14.2':
     dependencies:
       undici-types: 5.26.5
 
@@ -1721,9 +1721,9 @@ snapshots:
 
   typescript@5.4.5: {}
 
-  typia@6.0.3(typescript@5.4.5):
+  typia@6.0.6(typescript@5.4.5):
     dependencies:
-      '@samchon/openapi': 0.1.21
+      '@samchon/openapi': 0.1.22
       commander: 10.0.1
       comment-json: 4.2.3
       inquirer: 8.2.6
@@ -1745,13 +1745,13 @@ snapshots:
       fast-glob: 3.3.2
       magic-string: 0.30.5
 
-  vite@5.2.11(@types/node@20.12.12):
+  vite@5.2.12(@types/node@20.14.2):
     dependencies:
       esbuild: 0.20.2
       postcss: 8.4.38
       rollup: 4.13.2
     optionalDependencies:
-      '@types/node': 20.12.12
+      '@types/node': 20.14.2
       fsevents: 2.3.3
 
   wcwidth@1.0.1:
