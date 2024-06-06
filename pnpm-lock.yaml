@@ -20,6 +20,9 @@ importers:
       form-types:
         specifier: workspace:*
         version: link:../types
+      html-escaper:
+        specifier: ^3.0.3
+        version: 3.0.3
       i18n-iso-countries:
         specifier: ^7.11.0
         version: 7.11.0
@@ -30,6 +33,9 @@ importers:
       '@cloudflare/workers-types':
         specifier: ^4.20240320.1
         version: 4.20240320.1
+      '@types/html-escaper':
+        specifier: ^3.0.2
+        version: 3.0.2
       '@types/node':
         specifier: ^20.11.30
         version: 20.11.30
@@ -495,6 +501,9 @@ packages:
   '@types/estree@1.0.5':
     resolution: {integrity: sha512-/kYRxGDLWzHOB7q+wtSUQlFrtcdUccpfy+X+9iMBpHK8QLLhx2wIPYuS5DYtR9Wa/YlZAbIovy7qVdB1Aq6Lyw==}
 
+  '@types/html-escaper@3.0.2':
+    resolution: {integrity: sha512-A8vk09eyYzk8J/lFO4OUMKCmRN0rRzfZf4n3Olwapgox/PtTiU8zPYlL1UEkJ/WeHvV6v9Xnj3o/705PKz9r4Q==}
+
   '@types/node-forge@1.3.10':
     resolution: {integrity: sha512-y6PJDYN4xYBxwd22l+OVH35N+1fCYWiuC3aiP2SlXVE6Lo7SS+rSx9r89hLxrP4pn6n1lBGhHJ12pj3F3Mpttw==}
 
@@ -721,6 +730,9 @@ packages:
   hasown@2.0.0:
     resolution: {integrity: sha512-vUptKVTpIJhcczKBbgnS+RtcuYMB8+oNzPK2/Hp3hanz8JmpATdmmgLgSaadVREkDm+e2giHwY3ZRkyjSIDDFA==}
     engines: {node: '>= 0.4'}
+
+  html-escaper@3.0.3:
+    resolution: {integrity: sha512-RuMffC89BOWQoY0WKGpIhn5gX3iI54O6nRA0yC124NYVtzjmFWBIiFd8M0x+ZdX0P9R4lADg1mgP8C7PxGOWuQ==}
 
   i18n-iso-countries@7.11.0:
     resolution: {integrity: sha512-MP2+aAJwvBTuruaMEj+mPEhu4D9rn03GkkbuP8/xkvNzhVwNe2cAg1ivkL5Oj+vwqEwvIcf5C7Q+5Y/UZNLBHw==}
@@ -1347,6 +1359,8 @@ snapshots:
 
   '@types/estree@1.0.5': {}
 
+  '@types/html-escaper@3.0.2': {}
+
   '@types/node-forge@1.3.10':
     dependencies:
       '@types/node': 20.11.30
@@ -1595,6 +1609,8 @@ snapshots:
   hasown@2.0.0:
     dependencies:
       function-bind: 1.1.2
+
+  html-escaper@3.0.3: {}
 
   i18n-iso-countries@7.11.0:
     dependencies:
