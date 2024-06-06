@@ -2,7 +2,7 @@
   description = "Affordable full-body tracking for VR!";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "nixpkgs";
     devenv.url = "github:cachix/devenv";
     nix2container.url = "github:nlewo/nix2container";
     nix2container.inputs.nixpkgs.follows = "nixpkgs";
@@ -67,6 +67,7 @@
 
           languages.javascript = {
             enable = true;
+            package = pkgs.nodejs-slim_22;
             corepack.enable = true;
           };
 
