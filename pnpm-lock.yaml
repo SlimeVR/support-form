@@ -54,6 +54,9 @@ importers:
       i18n-iso-countries:
         specifier: ^7.11.0
         version: 7.11.0
+      intl-tel-input:
+        specifier: ^23.0.10
+        version: 23.0.10
     devDependencies:
       vite:
         specifier: ^5.2.6
@@ -751,6 +754,9 @@ packages:
   inquirer@8.2.6:
     resolution: {integrity: sha512-M1WuAmb7pn9zdFRtQYk26ZBoY043Sse0wVDdk4Bppr+JOXyQYybdtvK+l9wUibhtjdjvtoiNy8tk+EgsYIUqKg==}
     engines: {node: '>=12.0.0'}
+
+  intl-tel-input@23.0.10:
+    resolution: {integrity: sha512-e7vOl/9NCkorU+Qyk8qi9GTBpGrcFKsGw5gO8rrkkg7VdOpHK8MkNo855l2dgr5FSIiRDPhqczhfxivVBAsdew==}
 
   is-binary-path@2.1.0:
     resolution: {integrity: sha512-ZMERYes6pDydyuGidse7OsHxtbI7WVeUEozgR/g7rd0xUimYNlvZRE/K2MgZTjWy725IfelLeVcEM97mmtRGXw==}
@@ -1641,6 +1647,8 @@ snapshots:
       strip-ansi: 6.0.1
       through: 2.3.8
       wrap-ansi: 6.2.0
+
+  intl-tel-input@23.0.10: {}
 
   is-binary-path@2.1.0:
     dependencies:

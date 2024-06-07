@@ -1,3 +1,5 @@
+import { alpha3ToAlpha2, registerLocale, getName } from "i18n-iso-countries";
+import countryEn from "i18n-iso-countries/langs/en.json";
 import typia from "typia";
 import { ProblemType, SupportForm } from "form-types";
 import { escape as escapeHtml } from "html-escaper";
@@ -105,11 +107,8 @@ export async function formatTicket(
 export function generateBody(form: SupportForm): string {
 	switch (form.problem) {
 		case ProblemType.WARRANTY:
+			registerLocale(countryEn)
 			return html`<div>
-				<div>
-					<b>Name:</b>
-					<pre>${escapeHtml(form.name)}</pre>
-				</div>
 				<div>
 					<b>Issue type:</b>
 					<pre>${escapeHtml(form.problem)}</pre>
@@ -130,39 +129,43 @@ ${form.whichSet ? escapeHtml(form.whichSet) : "Not given"}</pre
 				</div>
 				<h3>Shipping information:</h3>
 				<div>
+					<b>Name:</b>
+					<code>${escapeHtml(form.name)}</code>
+				</div>
+				<div>
+					<b>Phone number:</b>
+					<code>${escapeHtml(form.phoneNumber)}</code>
+				</div>
+				<div>
 					<b>Address:</b>
-					<pre>${escapeHtml(form.address)}</pre>
-				</div>
-				<div>
-					<b>Extra address info:</b>
-					<pre>
-${form.secondAddress ? escapeHtml(form.secondAddress) : "Not given"}</pre
-					>
-				</div>
-				<div>
-					<b>Postal code:</b>
-					<pre>
-${form.postalCode ? escapeHtml(form.postalCode) : "Not given"}</pre
+					<code
+						>${escapeHtml(form.address)}${form.secondAddress
+							? `, ${escapeHtml(form.secondAddress)}`
+							: ""}</code
 					>
 				</div>
 				<div>
 					<b>City:</b>
-					<pre>${form.city ? escapeHtml(form.city) : "Not given"}</pre>
+					<code
+						>${escapeHtml(form.city)}${form.province
+							? `, ${escapeHtml(form.province)}`
+							: ""}</code
+					>
 				</div>
 				<div>
-					<b>Province/State:</b>
-					<pre>${escapeHtml(escapeHtml(form.province))}</pre>
+					<b>Postal code:</b>
+					<code>${form.postalCode ? escapeHtml(form.postalCode) : "0"}</code>
 				</div>
 				<div>
 					<b>Country:</b>
-					<pre>${escapeHtml(form.country)}</pre>
+					<code
+						>${escapeHtml(
+							`${alpha3ToAlpha2(form.country)}, ${getName(form.country, "en")}`,
+						)}</code
+					>
 				</div>
+				<h3>Message:</h3>
 				<div>
-					<b>Phone number:</b>
-					<pre>${escapeHtml(form.phoneNumber)}</pre>
-				</div>
-				<div>
-					<b>Message:</b>
 					<pre>${escapeHtml(form.description.trim())}</pre>
 				</div>
 			</div>`;
