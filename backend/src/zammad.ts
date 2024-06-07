@@ -183,8 +183,8 @@ ${form.whichSet ? escapeHtml(form.whichSet) : "Not given"}</pre
 					<b>Order number:</b>
 					<pre>${form.orderNo ? escapeHtml(form.orderNo) : "Not given"}</pre>
 				</div>
+				<h3>Message:</h3>
 				<div>
-					<b>Message:</b>
 					<pre>${escapeHtml(form.description.trim())}</pre>
 				</div>
 			</div>`;
