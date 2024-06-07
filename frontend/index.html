@@ -144,8 +144,9 @@
                         id="ContactForm-city"
                         autocomplete="address-level2"
                         maxlength="200"
+                        data-required
                     />
-                    <label for="city">City (optional)</label>
+                    <label for="city">City</label>
                 </div>
                 <div>
                 <span class="error" aria-live="polite"></span>
@@ -155,9 +156,8 @@
                         id="ContactForm-province"
                         autocomplete="address-level1"
                         maxlength="200"
-                        data-required
                     />
-                    <label for="province">State or province</label>
+                    <label for="province">State or province (optional)</label>
                 </div>
                 <div>
                 <span class="error" aria-live="polite"></span>
@@ -176,18 +176,6 @@
                 </div>
             </div>
             <div id="ContactForm-other-problem" hidden></div>
-            <div>
-                <span class="error" aria-live="polite"></span>
-                <input
-                    type="text"
-                    id="ContactForm-subject"
-                    name="subject"
-                    minlength="1"
-                    maxlength="60"
-                    required
-                />
-                <label for="subject">Subject</label>
-            </div>
             <div>
                 <span class="error" aria-live="polite"></span>
                 <input

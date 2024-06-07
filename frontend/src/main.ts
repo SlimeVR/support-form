@@ -1,10 +1,13 @@
 import { ProblemType, SlimeSet, WarrantyIssue } from "form-types";
-import countries from "i18n-iso-countries";
+import countries, { alpha3ToAlpha2 } from "i18n-iso-countries";
 import Choices, { Choice } from "choices.js";
+import intlTelInput from "intl-tel-input/intlTelInputWithUtils";
 import countryEn from "i18n-iso-countries/langs/en.json";
 // import "choices.js/public/assets/styles/base.min.css";
 import "choices.js/public/assets/styles/choices.min.css";
+import "intl-tel-input/build/css/intlTelInput.css";
 import { showError } from "./error";
+import { Iti } from "intl-tel-input";
 
 // Fetch country names
 const promise = (async () => {
@@ -117,6 +120,46 @@ const promise = (async () => {
 	choices.init();
 }
 
+let iti: Iti;
+// Telephone intl input
+{
+	const telInput = document.querySelector<HTMLInputElement>(
+		"#ContactForm-phone-number",
+	)!;
+	iti = intlTelInput(telInput, {
+		initialCountry: "nl",
+		strictMode: true,
+		separateDialCode: true,
+		containerClass: "field field_group",
+		nationalMode: true,
+	});
+	(async () => {
+		await iti.promise;
+		{
+			const span = document.createElement("span");
+			span.classList.add("error");
+			span.ariaLive = "polite";
+			telInput.parentElement?.prepend(span);
+		}
+	})();
+	const country = document.querySelector<HTMLSelectElement>("#ContactForm-country")!;
+
+	country.addEventListener("change", () => {
+		const alpha2 = alpha3ToAlpha2(country.value);
+		if (alpha2) iti.setCountry(alpha2);
+	});
+	telInput.addEventListener("input", () => {
+		const parent = telInput.parentElement! as HTMLDivElement;
+		const textElement = parent.querySelector<HTMLSpanElement>("span.error")!;
+		if (telInput.validity.valid || iti.isValidNumber()) {
+			textElement.textContent = "";
+			parent.classList.remove("invalid");
+		} else {
+			showError(telInput, textElement, parent);
+		}
+	});
+}
+
 // Error validation
 {
 	const form = document.querySelector<HTMLFormElement>("#ContactForm")!;
@@ -227,6 +270,9 @@ const promise = (async () => {
 		} else {
 			(async () => {
 				const formData = new FormData(form);
+
+				// Update phone number to international one
+				formData.set("phoneNumber", iti.getNumber())
 
 				try {
 					const response = await fetch(

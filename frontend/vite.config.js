@@ -1,5 +1,6 @@
 import dynamicImport from "vite-plugin-dynamic-import";
 
+/** @type {import('vite').UserConfig} */
 export default {
 	plugins: [
 		dynamicImport({
@@ -12,4 +13,5 @@ export default {
 			},
 		}),
 	],
+	base: "./"
 };
