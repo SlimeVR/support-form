@@ -9,6 +9,8 @@ import "intl-tel-input/build/css/intlTelInput.css";
 import { showError } from "./error";
 import { Iti } from "intl-tel-input";
 
+const TOTAL_FILE_LIMIT = 2.5e7; // 25MB
+
 // Fetch country names
 const promise = (async () => {
 	countries.registerLocale(countryEn);
@@ -232,6 +234,38 @@ let iti: Iti;
 		});
 	});
 
+	{
+		const imageFilesInput =
+			form.querySelector<HTMLInputElement>("#ContactForm-images")!;
+
+		const evHandler = () => {
+			const parent = imageFilesInput.parentElement! as HTMLDivElement;
+			const textElement = parent.querySelector<HTMLSpanElement>("span.error")!;
+			if (imageFilesInput.files) {
+				const size = [...imageFilesInput.files].reduce(
+					(prev, cur) => prev + cur.size,
+					0,
+				);
+				if (size < TOTAL_FILE_LIMIT) {
+					imageFilesInput.setCustomValidity("");
+				} else {
+					imageFilesInput.setCustomValidity(
+						"The total size of all files is more than 25MB!",
+					);
+				}
+			} else {
+				imageFilesInput.setCustomValidity("");
+			}
+			if (imageFilesInput.validity.valid) {
+				textElement.textContent = "";
+				parent.classList.remove("invalid");
+			} else {
+				showError(imageFilesInput, textElement, parent);
+			}
+		};
+		imageFilesInput?.addEventListener("input", evHandler);
+	}
+
 	const submitButton = form.querySelector<HTMLButtonElement>(
 		'button[type="submit"]',
 	)!;
@@ -272,7 +306,7 @@ let iti: Iti;
 				const formData = new FormData(form);
 
 				// Update phone number to international one
-				formData.set("phoneNumber", iti.getNumber())
+				formData.set("phoneNumber", iti.getNumber());
 
 				try {
 					const response = await fetch(
