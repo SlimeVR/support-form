@@ -66,7 +66,9 @@ async function submitHandler(request: Request, env: Env): Promise<Response> {
 	const validation = typia.validate<SupportForm>(a);
 	if (!validation.success) {
 		console.error(validation.errors);
-		return new Response("Invalid form", { status: 400 });
+		return new Response("Invalid form" + JSON.stringify(validation.errors), {
+			status: 400,
+		});
 	}
 	const form = a as unknown as SupportForm;
 	if (

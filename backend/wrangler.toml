@@ -11,7 +11,7 @@ command = "pnpm build"
 # Docs: https://developers.cloudflare.com/workers/platform/environment-variables
 [vars]
 # Max total attachments size
-MAX_FILES_SIZE = "1e+7" # In bytes
+MAX_FILES_SIZE = "2.5e+7" # In bytes
 SUPPORT_EMAIL = "support@slimevr.dev"
 
 # Bind a KV Namespace. Use KV as persistent storage for small key-value pairs.
