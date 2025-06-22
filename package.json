@@ -2,13 +2,13 @@
   "name": "support-form",
   "version": "0.1.0",
   "private": true,
-  "packageManager": "pnpm@9.1.1",
+  "packageManager": "pnpm@10.12.1",
   "scripts": {
     "preinstall": "npx only-allow pnpm"
   },
   "license": "Apache-2.0 OR MIT",
   "devDependencies": {
     "prettier": "3.2.5",
-    "typescript": "^5.4.3"
+    "typescript": "^5.8.3"
   }
 }

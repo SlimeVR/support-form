@@ -8,13 +8,13 @@
     "preview": "vite preview"
   },
   "devDependencies": {
-    "vite": "^5.2.6",
+    "vite": "^6.3.5",
     "vite-plugin-dynamic-import": "^1.5.0"
   },
   "dependencies": {
-    "choices.js": "^10.2.0",
+    "choices.js": "^11.1.0",
     "form-types": "workspace:*",
     "i18n-iso-countries": "^7.11.0",
-    "intl-tel-input": "^23.0.10"
+    "intl-tel-input": "^25.3.1"
   }
 }

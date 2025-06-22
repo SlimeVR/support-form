@@ -1,6 +1,6 @@
 import { ProblemType, SlimeSet, WarrantyIssue } from "form-types";
 import countries, { alpha3ToAlpha2 } from "i18n-iso-countries";
-import Choices, { Choice } from "choices.js";
+import Choices from "choices.js";
 import intlTelInput from "intl-tel-input/intlTelInputWithUtils";
 import countryEn from "i18n-iso-countries/langs/en.json";
 // import "choices.js/public/assets/styles/base.min.css";
@@ -33,10 +33,6 @@ const promise = (async () => {
 {
 	const problemSelect =
 		document.querySelector<HTMLSelectElement>("#ContactForm-problem")!;
-	const orderNo = document.querySelector<HTMLInputElement>("#ContactForm-orderNo")!;
-	const orderNoLabel = document.querySelector<HTMLLabelElement>(
-		"#ContactForm-orderNo + label",
-	)!;
 
 	const sections = new Map([
 		[
@@ -56,16 +52,6 @@ const promise = (async () => {
 				"input[data-required], select[data-required]",
 			).forEach((input) => (input.required = key === value));
 		});
-
-		switch (value) {
-			case ProblemType.WARRANTY:
-				orderNoLabel.innerText = "Order number";
-				orderNo.required = true;
-				break;
-			case ProblemType.OTHER:
-				orderNoLabel.innerText = "Order number (optional)";
-				orderNo.required = false;
-		}
 	};
 
 	problemSelect.addEventListener("change", (ev) => {
@@ -115,8 +101,13 @@ const promise = (async () => {
 	choices.setChoices(() =>
 		promise.then(() =>
 			Object.keys(countries.getAlpha3Codes())
-				.map((key) => ({ value: key, label: countries.getName(key, "en") }))
-				.filter<Choice>((x): x is Choice => x.label !== undefined),
+				.map((key) => ({
+					value: key,
+					label: countries.getName(key, "en"),
+				}))
+				.filter(
+					(x): x is { value: string; label: string } => x.label !== undefined,
+				),
 		),
 	);
 	choices.init();
@@ -233,6 +224,29 @@ let iti: Iti;
 			showError(i, textElement, parent);
 		});
 	});
+
+	{
+		const postalCodeInput = form.querySelector<HTMLInputElement>(
+			"#ContactForm-postal-code",
+		)!;
+		const evHandler = () => {
+			const parent = postalCodeInput.parentElement! as HTMLDivElement;
+			const textElement = parent.querySelector<HTMLSpanElement>("span.error")!;
+			if (postalCodeInput.value === "0") {
+				postalCodeInput.setCustomValidity("You can't use '0' as a postal code");
+			} else {
+				postalCodeInput.setCustomValidity("");
+			}
+
+			if (postalCodeInput.validity.valid) {
+				textElement.textContent = "";
+				parent.classList.remove("invalid");
+			} else {
+				showError(postalCodeInput, textElement, parent);
+			}
+		};
+		postalCodeInput?.addEventListener("input", evHandler);
+	}
 
 	{
 		const imageFilesInput =

@@ -45,9 +45,7 @@
             <div class="field field_group">
                 <span class="error" aria-live="polite"></span>
                 <select name="problem" id="ContactForm-problem" required>
-                    <option value="">
-                        Please choose an option
-                    </option>
+                    <option value="">Please choose an option</option>
                 </select>
                 <label for="problem">What kind of problem do you have?</label>
             </div>
@@ -57,8 +55,9 @@
                     type="text"
                     id="ContactForm-orderNo"
                     name="orderNo"
-                    pattern=^(\d+|#?(SVR#)?\d{4,}S)$
+                    pattern="^(\d+|#?(SVR#)?\d{4,}S)$"
                     autocomplete="off"
+                    required
                 />
                 <label for="orderNo">Order number</label>
             </div>
@@ -66,9 +65,7 @@
                 <div class="field field_group">
                     <span class="error" aria-live="polite"></span>
                     <select name="whichSet" id="ContactForm-which-set">
-                        <option value="">
-                            Please choose an option
-                        </option>
+                        <option value="">Please choose an option</option>
                     </select>
                     <label for="whichSet"
                         >Which set has the problem? (optional)</label
@@ -81,9 +78,7 @@
                         id="ContactForm-warranty-issue"
                         data-required
                     >
-                        <option value="">
-                            Please choose an option
-                        </option>
+                        <option value="">Please choose an option</option>
                     </select>
                     <label for="warrantyIssue"
                         >What happened to your tracker?</label
@@ -100,8 +95,8 @@
                     <label for="country">Country or region</label>
                 </div>
                 <div>
-                <span class="error" aria-live="polite"></span>
-                <input
+                    <span class="error" aria-live="polite"></span>
+                    <input
                         type="text"
                         name="address"
                         id="ContactForm-address"
@@ -112,8 +107,8 @@
                     <label for="address">Street address</label>
                 </div>
                 <div>
-                <span class="error" aria-live="polite"></span>
-                <input
+                    <span class="error" aria-live="polite"></span>
+                    <input
                         type="text"
                         name="secondAddress"
                         id="ContactForm-second-address"
@@ -124,21 +119,20 @@
                     >
                 </div>
                 <div>
-                <span class="error" aria-live="polite"></span>
-                <input
+                    <span class="error" aria-live="polite"></span>
+                    <input
                         type="text"
                         name="postalCode"
                         id="ContactForm-postal-code"
                         autocomplete="postal-code"
                         maxlength="20"
+                        data-required
                     />
-                    <label for="postalCode"
-                        >ZIP or postal code (optional)</label
-                    >
+                    <label for="postalCode">ZIP or postal code</label>
                 </div>
                 <div>
-                <span class="error" aria-live="polite"></span>
-                <input
+                    <span class="error" aria-live="polite"></span>
+                    <input
                         type="text"
                         name="city"
                         id="ContactForm-city"
@@ -149,8 +143,8 @@
                     <label for="city">City</label>
                 </div>
                 <div>
-                <span class="error" aria-live="polite"></span>
-                <input
+                    <span class="error" aria-live="polite"></span>
+                    <input
                         type="text"
                         name="province"
                         id="ContactForm-province"
@@ -160,8 +154,8 @@
                     <label for="province">State or province (optional)</label>
                 </div>
                 <div>
-                <span class="error" aria-live="polite"></span>
-                <input
+                    <span class="error" aria-live="polite"></span>
+                    <input
                         type="tel"
                         name="phoneNumber"
                         id="ContactForm-phone-number"
@@ -170,9 +164,7 @@
                         maxlength="30"
                         pattern="[\d \-\+]+"
                     />
-                    <label for="phoneNumber"
-                        >Phone number</label
-                    >
+                    <label for="phoneNumber">Phone number</label>
                 </div>
             </div>
             <div id="ContactForm-other-problem" hidden></div>
