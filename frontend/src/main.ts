@@ -95,7 +95,7 @@ const promise = (async () => {
 {
 	const choices = new Choices(document.querySelector("#ContactForm-country")!, {
 		placeholder: true,
-		placeholderValue: "Select the country or region you reside in",
+		placeholderValue: "Select the country you reside in",
 	});
 
 	choices.setChoices(() =>
