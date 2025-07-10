@@ -95,7 +95,6 @@ const promise = (async () => {
 {
 	const choices = new Choices(document.querySelector("#ContactForm-country")!, {
 		placeholder: true,
-		placeholderValue: "Select the country you reside in",
 	});
 
 	choices.setChoices(() =>
@@ -136,18 +135,32 @@ let iti: Iti;
 		}
 	})();
 	const country = document.querySelector<HTMLSelectElement>("#ContactForm-country")!;
-
 	country.addEventListener("change", () => {
 		const alpha2 = alpha3ToAlpha2(country.value);
 		if (alpha2) iti.setCountry(alpha2);
+
+		const parent = telInput.parentElement! as HTMLDivElement;
+		const textElement = parent.querySelector<HTMLSpanElement>("span.error")!;
+		if (country.value === "USA" && textElement.classList.contains("warning")) {
+			textElement.classList.remove("warning");
+			textElement.textContent = "";
+		}
 	});
 	telInput.addEventListener("input", () => {
 		const parent = telInput.parentElement! as HTMLDivElement;
 		const textElement = parent.querySelector<HTMLSpanElement>("span.error")!;
 		if (telInput.validity.valid || iti.isValidNumber()) {
-			textElement.textContent = "";
-			parent.classList.remove("invalid");
+			if (country.value === "GEO" && iti.getSelectedCountryData().iso2 === "us") {
+				textElement.classList.add("warning");
+				textElement.textContent =
+					"Warning: You have the COUNTRY of Georgia selected, not the US state!";
+			} else {
+				textElement.classList.remove("warning");
+				textElement.textContent = "";
+				parent.classList.remove("invalid");
+			}
 		} else {
+			textElement.classList.remove("warning");
 			showError(telInput, textElement, parent);
 		}
 	});
@@ -158,6 +171,7 @@ let iti: Iti;
 	const form = document.querySelector<HTMLFormElement>("#ContactForm")!;
 	const inputs = form.querySelectorAll<HTMLInputElement>("input");
 	inputs.forEach((i) => {
+		if (!i.id || i.id === "ContactForm-phone-number") return;
 		i.addEventListener("input", () => {
 			const parent = i.parentElement! as HTMLDivElement;
 			const textElement = parent.querySelector<HTMLSpanElement>("span.error")!;
