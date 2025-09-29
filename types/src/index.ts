@@ -37,6 +37,10 @@ export enum SlimeSet {
 	UPGRADE_HIP_PURPLE = "Hip Upgrade (1+0)",
 	UPGRADE_FEET_PURPLE = "Feet Upgrade (0+2)",
 	UPGRADE_ELBOWS_PURPLE = "Elbows Upgrade (2+0)",
+	CORE_PURPLE_1_2 = "Purple Core Set V1.2 (6+0)",
+	ENHANCED_CORE_PURPLE_1_2 = "Purple Enhanced Core Set V1.2 (6+2)",
+	FULLBODY_PURPLE_1_2 = "Purple Full-Body Set V1.2 (8+2)",
+	DELUXE_TRACKER_PURPLE_1_2 = "Purple Deluxe Tracker Set V1.2 (12+4)",
 }
 
 export const STRING_SET_MAP: Record<string, SlimeSet> = {
@@ -58,6 +62,10 @@ export const STRING_SET_MAP: Record<string, SlimeSet> = {
 	"SLIMEVR-FBT-UP-HIP-P": SlimeSet.UPGRADE_HIP_PURPLE,
 	"SLIMEVR-FBT-UP-FEET-P": SlimeSet.UPGRADE_FEET_PURPLE,
 	"SLIMEVR-FBT-UP-ELBOWS-P": SlimeSet.UPGRADE_ELBOWS_PURPLE,
+	"SLIMEVR-FBT-CS-V1.2-P": SlimeSet.CORE_PURPLE_1_2,
+	"SLIMEVR-FBT-ECS-V1.2-P": SlimeSet.ENHANCED_CORE_PURPLE_1_2,
+	"SLIMEVR-FBT-FBS-V1.2-P": SlimeSet.FULLBODY_PURPLE_1_2,
+	"SLIMEVR-FBT-DTS-V1.2-P": SlimeSet.DELUXE_TRACKER_PURPLE_1_2,
 };
 
 export type OrderNumber = ShopifyOrderNumber | CrowdsupplyOrderNumber;
